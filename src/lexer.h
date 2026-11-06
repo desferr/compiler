@@ -16,8 +16,8 @@ enum LexType {
 struct Lex {
     int type = 0;
     std::string value;
-    long long int_value = 0;
-    double real_value = 0;
+    long long intValue = 0;
+    double realValue = 0;
     int line = 0;
     int col = 0;
 };

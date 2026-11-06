@@ -89,12 +89,12 @@ static Lex finish(int st, char ch, int cls, const std::string& buffer, int line,
             }
         case ST_C:
             l.type = L_INT;
-            try { l.int_value = std::stoll(buffer); }
+            try { l.intValue = std::stoll(buffer); }
             catch (...) { throw LexError("Число слишком велико", line, col); }
             break;
         case ST_E:
             l.type = L_REAL;
-            l.real_value = std::strtod(buffer.c_str(), nullptr);
+            l.realValue = std::strtod(buffer.c_str(), nullptr);
             break;
         case ST_A:
             l.type = L_ASSIGN;
@@ -123,7 +123,7 @@ static const char* errorText(int st) {
 Lex Lexer::next() {
     int st = ST_S;
     std::string buffer;
-    int sl = line, sc =col;
+    int sl = line, sc = col;
     for (;;) {
         if (st == ST_S) { sl = line; sc = col; }
         bool eof = (pos >= src.size());
