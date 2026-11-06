@@ -1,0 +1,15 @@
+begin
+  write(2 + 3 * 4);
+  write((2 + 3) * 4);
+  write(10 - 4 - 3);
+  write(100 / 10 / 5);
+  write(-2 * 3);
+  write(-(1 + 2) * 3);
+  write(2 * -3);
+  write(7 - -2);
+  write(+5);
+  write(2 + 3 * 4 - 6 / 3 * 2);
+  write(2 * +3);
+  write(5 - +2);
+  write(-2.5 * 2)
+end

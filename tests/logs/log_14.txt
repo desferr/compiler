@@ -1,0 +1,28 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       26   BEGIN             begin
+2:3       1    ID                x
+2:5       4    ASSIGN            :=
+2:8       2    INT               1    [int = 1]
+3:1       27   END               end
+4:1       1    ID                x
+4:3       4    ASSIGN            :=
+4:6       2    INT               2    [int = 2]
+5:1       31   EOF               EOF
+Лексический анализ завершён: лексем 9 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    begin           #2 P → begin A Q end                      P ┴ 
+2    begin           match begin                               begin A Q end ┴ 
+3    ID(x)           #6 A → ID H := S Z                        A Q end ┴ 
+4    ID(x)           match ID                          a       ID H := S Z Q end ┴ 
+5    :=              #57 H → λ                                 H := S Z Q end ┴ 
+6    :=              match :=                                  := S Z Q end ┴ 
+7    INT(1)          #30 S → INT V U                           S Z Q end ┴ 
+8    INT(1)          match INT                         k       INT V U Z Q end ┴ 
+9    end             #45 V → λ                                 V U Z Q end ┴ 
+10   end             #36 U → λ                                 U Z Q end ┴ 
+11   end             #58 Z → λ                         :=      Z Q end ┴ 
+12   end             #13 Q → λ                                 Q end ┴ 
+13   end             match end                                 end ┴ 
+Синтаксическая ошибка: строка 4, символ 1: лишний текст после конца программы: идентификатор 'x'

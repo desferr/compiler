@@ -1,0 +1,6 @@
+begin
+  read(a);
+  read(b);
+  write(a / 2);
+  write(a / b)
+end

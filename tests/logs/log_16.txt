@@ -1,0 +1,64 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       30   ARRAY             array
+1:7       1    ID                a
+1:8       11   LEFTBRACKET       [
+1:9       2    INT               3    [int = 3]
+1:10      12   RIGHTBRACKET      ]
+1:11      14   SEMICOLON         ;
+2:1       26   BEGIN             begin
+3:3       1    ID                x
+3:5       4    ASSIGN            :=
+3:8       2    INT               5    [int = 5]
+3:9       14   SEMICOLON         ;
+4:3       1    ID                a
+4:4       11   LEFTBRACKET       [
+4:5       2    INT               0    [int = 0]
+4:6       12   RIGHTBRACKET      ]
+4:8       4    ASSIGN            :=
+4:11      1    ID                x
+4:12      11   LEFTBRACKET       [
+4:13      2    INT               1    [int = 1]
+4:14      12   RIGHTBRACKET      ]
+5:1       27   END               end
+6:1       31   EOF               EOF
+Лексический анализ завершён: лексем 22 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    array           #1 P → array R P                          P ┴ 
+2    array           match array                               array R P ┴ 
+3    ID(a)           #3 R → ID [ INT ] M                       R P ┴ 
+4    ID(a)           match ID                          6       ID [ INT ] M P ┴ 
+5    [               match [                                   [ INT ] M P ┴ 
+6    INT(3)          match INT                         k       INT ] M P ┴ 
+7    ]               match ]                           m1      ] M P ┴ 
+8    ;               #5 M → ;                                  M P ┴ 
+9    ;               match ;                                   ; P ┴ 
+10   begin           #2 P → begin A Q end                      P ┴ 
+11   begin           match begin                               begin A Q end ┴ 
+12   ID(x)           #6 A → ID H := S Z                        A Q end ┴ 
+13   ID(x)           match ID                          a       ID H := S Z Q end ┴ 
+14   :=              #57 H → λ                                 H := S Z Q end ┴ 
+15   :=              match :=                                  := S Z Q end ┴ 
+16   INT(5)          #30 S → INT V U                           S Z Q end ┴ 
+17   INT(5)          match INT                         k       INT V U Z Q end ┴ 
+18   ;               #45 V → λ                                 V U Z Q end ┴ 
+19   ;               #36 U → λ                                 U Z Q end ┴ 
+20   ;               #58 Z → λ                         :=      Z Q end ┴ 
+21   ;               #12 Q → ; A Q                             Q end ┴ 
+22   ;               match ;                                   ; A Q end ┴ 
+23   ID(a)           #6 A → ID H := S Z                        A Q end ┴ 
+24   ID(a)           match ID                          a       ID H := S Z Q end ┴ 
+25   [               #56 H → [ S ]                             H := S Z Q end ┴ 
+26   [               match [                           7       [ S ] := S Z Q end ┴ 
+27   INT(0)          #30 S → INT V U                           S ] := S Z Q end ┴ 
+28   INT(0)          match INT                         k       INT V U ] := S Z Q end ┴ 
+29   ]               #45 V → λ                                 V U ] := S Z Q end ┴ 
+30   ]               #36 U → λ                                 U ] := S Z Q end ┴ 
+31   ]               match ]                           i       ] := S Z Q end ┴ 
+32   :=              match :=                                  := S Z Q end ┴ 
+33   ID(x)           #29 S → ID H V U                          S Z Q end ┴ 
+34   ID(x)           match ID                          a       ID H V U Z Q end ┴ 
+35   [               #56 H → [ S ]                             H V U Z Q end ┴ 
+36   [               match [                           7       [ S ] V U Z Q end ┴ 
+Семантическая ошибка: строка 4, символ 12: 'x' не является массивом, индексация невозможна

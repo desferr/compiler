@@ -1,0 +1,17 @@
+array a[5], b[3];
+array c[2];
+begin
+  i := 0;
+  while i < 5 do begin a[i] := i * i; i := i + 1 end;
+  b[0] := 4; b[1] := 2; b[2] := 1;
+  write(a[b[0]]);
+  write(a[b[1] + 1]);
+  write(a[b[2]] + a[2]);
+  c[0] := a[4] / 2;
+  c[1] := -a[3];
+  write(c[0]);
+  write(c[1]);
+  write(c[0] * c[1]);
+  a[a[1]] := 100;
+  write(a[1])
+end

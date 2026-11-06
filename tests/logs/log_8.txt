@@ -1,0 +1,1844 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       30   ARRAY             array
+1:7       1    ID                a
+1:8       11   LEFTBRACKET       [
+1:9       2    INT               100    [int = 100]
+1:12      12   RIGHTBRACKET      ]
+1:13      14   SEMICOLON         ;
+2:1       26   BEGIN             begin
+3:3       28   READ              read
+3:7       9    LEFTPARENTHES     (
+3:8       1    ID                n
+3:9       10   RIGHTPARENTHES    )
+3:10      14   SEMICOLON         ;
+4:3       1    ID                i
+4:5       4    ASSIGN            :=
+4:8       2    INT               0    [int = 0]
+4:9       14   SEMICOLON         ;
+5:3       24   WHILE             while
+5:9       1    ID                i
+5:11      15   LESSERTHAN        <
+5:13      1    ID                n
+5:15      25   DO                do
+5:18      26   BEGIN             begin
+5:24      28   READ              read
+5:28      9    LEFTPARENTHES     (
+5:29      1    ID                a
+5:30      11   LEFTBRACKET       [
+5:31      1    ID                i
+5:32      12   RIGHTBRACKET      ]
+5:33      10   RIGHTPARENTHES    )
+5:34      14   SEMICOLON         ;
+5:36      1    ID                i
+5:38      4    ASSIGN            :=
+5:41      1    ID                i
+5:43      5    PLUS              +
+5:45      2    INT               1    [int = 1]
+5:47      27   END               end
+5:50      14   SEMICOLON         ;
+6:3       1    ID                i
+6:5       4    ASSIGN            :=
+6:8       2    INT               0    [int = 0]
+6:9       14   SEMICOLON         ;
+7:3       24   WHILE             while
+7:9       1    ID                i
+7:11      15   LESSERTHAN        <
+7:13      1    ID                n
+7:15      6    MINUS             -
+7:17      2    INT               1    [int = 1]
+7:19      25   DO                do
+7:22      26   BEGIN             begin
+8:5       1    ID                j
+8:7       4    ASSIGN            :=
+8:10      2    INT               0    [int = 0]
+8:11      14   SEMICOLON         ;
+9:5       24   WHILE             while
+9:11      1    ID                j
+9:13      15   LESSERTHAN        <
+9:15      1    ID                n
+9:17      6    MINUS             -
+9:19      2    INT               1    [int = 1]
+9:21      6    MINUS             -
+9:23      1    ID                i
+9:25      25   DO                do
+9:28      26   BEGIN             begin
+10:7      21   IF                if
+10:10     1    ID                a
+10:11     11   LEFTBRACKET       [
+10:12     1    ID                j
+10:13     12   RIGHTBRACKET      ]
+10:15     16   GREATERTHAN       >
+10:17     1    ID                a
+10:18     11   LEFTBRACKET       [
+10:19     1    ID                j
+10:21     5    PLUS              +
+10:23     2    INT               1    [int = 1]
+10:24     12   RIGHTBRACKET      ]
+10:26     22   THEN              then
+10:31     26   BEGIN             begin
+11:9      1    ID                t
+11:11     4    ASSIGN            :=
+11:14     1    ID                a
+11:15     11   LEFTBRACKET       [
+11:16     1    ID                j
+11:17     12   RIGHTBRACKET      ]
+11:18     14   SEMICOLON         ;
+11:20     1    ID                a
+11:21     11   LEFTBRACKET       [
+11:22     1    ID                j
+11:23     12   RIGHTBRACKET      ]
+11:25     4    ASSIGN            :=
+11:28     1    ID                a
+11:29     11   LEFTBRACKET       [
+11:30     1    ID                j
+11:32     5    PLUS              +
+11:34     2    INT               1    [int = 1]
+11:35     12   RIGHTBRACKET      ]
+11:36     14   SEMICOLON         ;
+11:38     1    ID                a
+11:39     11   LEFTBRACKET       [
+11:40     1    ID                j
+11:42     5    PLUS              +
+11:44     2    INT               1    [int = 1]
+11:45     12   RIGHTBRACKET      ]
+11:47     4    ASSIGN            :=
+11:50     1    ID                t
+12:7      27   END               end
+12:10     14   SEMICOLON         ;
+13:7      1    ID                j
+13:9      4    ASSIGN            :=
+13:12     1    ID                j
+13:14     5    PLUS              +
+13:16     2    INT               1    [int = 1]
+14:5      27   END               end
+14:8      14   SEMICOLON         ;
+15:5      1    ID                i
+15:7      4    ASSIGN            :=
+15:10     1    ID                i
+15:12     5    PLUS              +
+15:14     2    INT               1    [int = 1]
+16:3      27   END               end
+16:6      14   SEMICOLON         ;
+17:3      1    ID                i
+17:5      4    ASSIGN            :=
+17:8      2    INT               0    [int = 0]
+17:9      14   SEMICOLON         ;
+18:3      24   WHILE             while
+18:9      1    ID                i
+18:11     15   LESSERTHAN        <
+18:13     1    ID                n
+18:15     25   DO                do
+18:18     26   BEGIN             begin
+18:24     29   WRITE             write
+18:29     9    LEFTPARENTHES     (
+18:30     1    ID                a
+18:31     11   LEFTBRACKET       [
+18:32     1    ID                i
+18:33     12   RIGHTBRACKET      ]
+18:34     10   RIGHTPARENTHES    )
+18:35     14   SEMICOLON         ;
+18:37     1    ID                i
+18:39     4    ASSIGN            :=
+18:42     1    ID                i
+18:44     5    PLUS              +
+18:46     2    INT               1    [int = 1]
+18:48     27   END               end
+19:1      27   END               end
+20:1      31   EOF               EOF
+Лексический анализ завершён: лексем 146 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    array           #1 P → array R P                          P ┴ 
+2    array           match array                               array R P ┴ 
+3    ID(a)           #3 R → ID [ INT ] M                       R P ┴ 
+4    ID(a)           match ID                          6       ID [ INT ] M P ┴ 
+5    [               match [                                   [ INT ] M P ┴ 
+6    INT(100)        match INT                         k       INT ] M P ┴ 
+7    ]               match ]                           m1      ] M P ┴ 
+8    ;               #5 M → ;                                  M P ┴ 
+9    ;               match ;                                   ; P ┴ 
+10   begin           #2 P → begin A Q end                      P ┴ 
+11   begin           match begin                               begin A Q end ┴ 
+12   read            #10 A → read ( ID H )                     A Q end ┴ 
+13   read            match read                                read ( ID H ) Q end ┴ 
+14   (               match (                                   ( ID H ) Q end ┴ 
+15   ID(n)           match ID                          a       ID H ) Q end ┴ 
+16   )               #57 H → λ                                 H ) Q end ┴ 
+17   )               match )                           r       ) Q end ┴ 
+18   ;               #12 Q → ; A Q                             Q end ┴ 
+19   ;               match ;                                   ; A Q end ┴ 
+20   ID(i)           #6 A → ID H := S Z                        A Q end ┴ 
+21   ID(i)           match ID                          a       ID H := S Z Q end ┴ 
+22   :=              #57 H → λ                                 H := S Z Q end ┴ 
+23   :=              match :=                                  := S Z Q end ┴ 
+24   INT(0)          #30 S → INT V U                           S Z Q end ┴ 
+25   INT(0)          match INT                         k       INT V U Z Q end ┴ 
+26   ;               #45 V → λ                                 V U Z Q end ┴ 
+27   ;               #36 U → λ                                 U Z Q end ┴ 
+28   ;               #58 Z → λ                         :=      Z Q end ┴ 
+29   ;               #12 Q → ; A Q                             Q end ┴ 
+30   ;               match ;                                   ; A Q end ┴ 
+31   while           #8 A → while C do A Z                     A Q end ┴ 
+32   while           match while                       4       while C do A Z Q end ┴ 
+33   ID(i)           #17 C → ID H V U D                        C do A Z Q end ┴ 
+34   ID(i)           match ID                          a       ID H V U D do A Z Q end ┴ 
+35   <               #57 H → λ                                 H V U D do A Z Q end ┴ 
+36   <               #45 V → λ                                 V U D do A Z Q end ┴ 
+37   <               #36 U → λ                                 U D do A Z Q end ┴ 
+38   <               #22 D → < S Z                             D do A Z Q end ┴ 
+39   <               match <                                   < S Z do A Z Q end ┴ 
+40   ID(n)           #29 S → ID H V U                          S Z do A Z Q end ┴ 
+41   ID(n)           match ID                          a       ID H V U Z do A Z Q end ┴ 
+42   do              #57 H → λ                                 H V U Z do A Z Q end ┴ 
+43   do              #45 V → λ                                 V U Z do A Z Q end ┴ 
+44   do              #36 U → λ                                 U Z do A Z Q end ┴ 
+45   do              #58 Z → λ                         <       Z do A Z Q end ┴ 
+46   do              match do                          1       do A Z Q end ┴ 
+47   begin           #9 A → begin A Q end                      A Z Q end ┴ 
+48   begin           match begin                               begin A Q end Z Q end ┴ 
+49   read            #10 A → read ( ID H )                     A Q end Z Q end ┴ 
+50   read            match read                                read ( ID H ) Q end Z Q end ┴ 
+51   (               match (                                   ( ID H ) Q end Z Q end ┴ 
+52   ID(a)           match ID                          a       ID H ) Q end Z Q end ┴ 
+53   [               #56 H → [ S ]                             H ) Q end Z Q end ┴ 
+54   [               match [                           7       [ S ] ) Q end Z Q end ┴ 
+55   ID(i)           #29 S → ID H V U                          S ] ) Q end Z Q end ┴ 
+56   ID(i)           match ID                          a       ID H V U ] ) Q end Z Q end ┴ 
+57   ]               #57 H → λ                                 H V U ] ) Q end Z Q end ┴ 
+58   ]               #45 V → λ                                 V U ] ) Q end Z Q end ┴ 
+59   ]               #36 U → λ                                 U ] ) Q end Z Q end ┴ 
+60   ]               match ]                           i       ] ) Q end Z Q end ┴ 
+61   )               match )                           r       ) Q end Z Q end ┴ 
+62   ;               #12 Q → ; A Q                             Q end Z Q end ┴ 
+63   ;               match ;                                   ; A Q end Z Q end ┴ 
+64   ID(i)           #6 A → ID H := S Z                        A Q end Z Q end ┴ 
+65   ID(i)           match ID                          a       ID H := S Z Q end Z Q end ┴ 
+66   :=              #57 H → λ                                 H := S Z Q end Z Q end ┴ 
+67   :=              match :=                                  := S Z Q end Z Q end ┴ 
+68   ID(i)           #29 S → ID H V U                          S Z Q end Z Q end ┴ 
+69   ID(i)           match ID                          a       ID H V U Z Q end Z Q end ┴ 
+70   +               #57 H → λ                                 H V U Z Q end Z Q end ┴ 
+71   +               #45 V → λ                                 V U Z Q end Z Q end ┴ 
+72   +               #34 U → + T U                             U Z Q end Z Q end ┴ 
+73   +               match +                                   + T U Z Q end Z Q end ┴ 
+74   INT(1)          #39 T → INT V                             T U Z Q end Z Q end ┴ 
+75   INT(1)          match INT                         k       INT V U Z Q end Z Q end ┴ 
+76   end             #45 V → λ                                 V U Z Q end Z Q end ┴ 
+77   end             #36 U → λ                         +       U Z Q end Z Q end ┴ 
+78   end             #58 Z → λ                         :=      Z Q end Z Q end ┴ 
+79   end             #13 Q → λ                                 Q end Z Q end ┴ 
+80   end             match end                                 end Z Q end ┴ 
+81   ;               #58 Z → λ                         5       Z Q end ┴ 
+82   ;               #12 Q → ; A Q                             Q end ┴ 
+83   ;               match ;                                   ; A Q end ┴ 
+84   ID(i)           #6 A → ID H := S Z                        A Q end ┴ 
+85   ID(i)           match ID                          a       ID H := S Z Q end ┴ 
+86   :=              #57 H → λ                                 H := S Z Q end ┴ 
+87   :=              match :=                                  := S Z Q end ┴ 
+88   INT(0)          #30 S → INT V U                           S Z Q end ┴ 
+89   INT(0)          match INT                         k       INT V U Z Q end ┴ 
+90   ;               #45 V → λ                                 V U Z Q end ┴ 
+91   ;               #36 U → λ                                 U Z Q end ┴ 
+92   ;               #58 Z → λ                         :=      Z Q end ┴ 
+93   ;               #12 Q → ; A Q                             Q end ┴ 
+94   ;               match ;                                   ; A Q end ┴ 
+95   while           #8 A → while C do A Z                     A Q end ┴ 
+96   while           match while                       4       while C do A Z Q end ┴ 
+97   ID(i)           #17 C → ID H V U D                        C do A Z Q end ┴ 
+98   ID(i)           match ID                          a       ID H V U D do A Z Q end ┴ 
+99   <               #57 H → λ                                 H V U D do A Z Q end ┴ 
+100  <               #45 V → λ                                 V U D do A Z Q end ┴ 
+101  <               #36 U → λ                                 U D do A Z Q end ┴ 
+102  <               #22 D → < S Z                             D do A Z Q end ┴ 
+103  <               match <                                   < S Z do A Z Q end ┴ 
+104  ID(n)           #29 S → ID H V U                          S Z do A Z Q end ┴ 
+105  ID(n)           match ID                          a       ID H V U Z do A Z Q end ┴ 
+106  -               #57 H → λ                                 H V U Z do A Z Q end ┴ 
+107  -               #45 V → λ                                 V U Z do A Z Q end ┴ 
+108  -               #35 U → - T U                             U Z do A Z Q end ┴ 
+109  -               match -                                   - T U Z do A Z Q end ┴ 
+110  INT(1)          #39 T → INT V                             T U Z do A Z Q end ┴ 
+111  INT(1)          match INT                         k       INT V U Z do A Z Q end ┴ 
+112  do              #45 V → λ                                 V U Z do A Z Q end ┴ 
+113  do              #36 U → λ                         -       U Z do A Z Q end ┴ 
+114  do              #58 Z → λ                         <       Z do A Z Q end ┴ 
+115  do              match do                          1       do A Z Q end ┴ 
+116  begin           #9 A → begin A Q end                      A Z Q end ┴ 
+117  begin           match begin                               begin A Q end Z Q end ┴ 
+118  ID(j)           #6 A → ID H := S Z                        A Q end Z Q end ┴ 
+119  ID(j)           match ID                          a       ID H := S Z Q end Z Q end ┴ 
+120  :=              #57 H → λ                                 H := S Z Q end Z Q end ┴ 
+121  :=              match :=                                  := S Z Q end Z Q end ┴ 
+122  INT(0)          #30 S → INT V U                           S Z Q end Z Q end ┴ 
+123  INT(0)          match INT                         k       INT V U Z Q end Z Q end ┴ 
+124  ;               #45 V → λ                                 V U Z Q end Z Q end ┴ 
+125  ;               #36 U → λ                                 U Z Q end Z Q end ┴ 
+126  ;               #58 Z → λ                         :=      Z Q end Z Q end ┴ 
+127  ;               #12 Q → ; A Q                             Q end Z Q end ┴ 
+128  ;               match ;                                   ; A Q end Z Q end ┴ 
+129  while           #8 A → while C do A Z                     A Q end Z Q end ┴ 
+130  while           match while                       4       while C do A Z Q end Z Q end ┴ 
+131  ID(j)           #17 C → ID H V U D                        C do A Z Q end Z Q end ┴ 
+132  ID(j)           match ID                          a       ID H V U D do A Z Q end Z Q end ┴ 
+133  <               #57 H → λ                                 H V U D do A Z Q end Z Q end ┴ 
+134  <               #45 V → λ                                 V U D do A Z Q end Z Q end ┴ 
+135  <               #36 U → λ                                 U D do A Z Q end Z Q end ┴ 
+136  <               #22 D → < S Z                             D do A Z Q end Z Q end ┴ 
+137  <               match <                                   < S Z do A Z Q end Z Q end ┴ 
+138  ID(n)           #29 S → ID H V U                          S Z do A Z Q end Z Q end ┴ 
+139  ID(n)           match ID                          a       ID H V U Z do A Z Q end Z Q end ┴ 
+140  -               #57 H → λ                                 H V U Z do A Z Q end Z Q end ┴ 
+141  -               #45 V → λ                                 V U Z do A Z Q end Z Q end ┴ 
+142  -               #35 U → - T U                             U Z do A Z Q end Z Q end ┴ 
+143  -               match -                                   - T U Z do A Z Q end Z Q end ┴ 
+144  INT(1)          #39 T → INT V                             T U Z do A Z Q end Z Q end ┴ 
+145  INT(1)          match INT                         k       INT V U Z do A Z Q end Z Q end ┴ 
+146  -               #45 V → λ                                 V U Z do A Z Q end Z Q end ┴ 
+147  -               #35 U → - T U                     -       U Z do A Z Q end Z Q end ┴ 
+148  -               match -                                   - T U Z do A Z Q end Z Q end ┴ 
+149  ID(i)           #38 T → ID H V                            T U Z do A Z Q end Z Q end ┴ 
+150  ID(i)           match ID                          a       ID H V U Z do A Z Q end Z Q end ┴ 
+151  do              #57 H → λ                                 H V U Z do A Z Q end Z Q end ┴ 
+152  do              #45 V → λ                                 V U Z do A Z Q end Z Q end ┴ 
+153  do              #36 U → λ                         -       U Z do A Z Q end Z Q end ┴ 
+154  do              #58 Z → λ                         <       Z do A Z Q end Z Q end ┴ 
+155  do              match do                          1       do A Z Q end Z Q end ┴ 
+156  begin           #9 A → begin A Q end                      A Z Q end Z Q end ┴ 
+157  begin           match begin                               begin A Q end Z Q end Z Q end ┴ 
+158  if              #7 A → if C then A E Z                    A Q end Z Q end Z Q end ┴ 
+159  if              match if                                  if C then A E Z Q end Z Q end Z Q end ┴ 
+160  ID(a)           #17 C → ID H V U D                        C then A E Z Q end Z Q end Z Q end ┴ 
+161  ID(a)           match ID                          a       ID H V U D then A E Z Q end Z Q end Z Q end ┴ 
+162  [               #56 H → [ S ]                             H V U D then A E Z Q end Z Q end Z Q end ┴ 
+163  [               match [                           7       [ S ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+164  ID(j)           #29 S → ID H V U                          S ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+165  ID(j)           match ID                          a       ID H V U ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+166  ]               #57 H → λ                                 H V U ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+167  ]               #45 V → λ                                 V U ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+168  ]               #36 U → λ                                 U ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+169  ]               match ]                           i       ] V U D then A E Z Q end Z Q end Z Q end ┴ 
+170  >               #45 V → λ                                 V U D then A E Z Q end Z Q end Z Q end ┴ 
+171  >               #36 U → λ                                 U D then A E Z Q end Z Q end Z Q end ┴ 
+172  >               #23 D → > S Z                             D then A E Z Q end Z Q end Z Q end ┴ 
+173  >               match >                                   > S Z then A E Z Q end Z Q end Z Q end ┴ 
+174  ID(a)           #29 S → ID H V U                          S Z then A E Z Q end Z Q end Z Q end ┴ 
+175  ID(a)           match ID                          a       ID H V U Z then A E Z Q end Z Q end Z Q end ┴ 
+176  [               #56 H → [ S ]                             H V U Z then A E Z Q end Z Q end Z Q end ┴ 
+177  [               match [                           7       [ S ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+178  ID(j)           #29 S → ID H V U                          S ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+179  ID(j)           match ID                          a       ID H V U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+180  +               #57 H → λ                                 H V U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+181  +               #45 V → λ                                 V U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+182  +               #34 U → + T U                             U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+183  +               match +                                   + T U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+184  INT(1)          #39 T → INT V                             T U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+185  INT(1)          match INT                         k       INT V U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+186  ]               #45 V → λ                                 V U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+187  ]               #36 U → λ                         +       U ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+188  ]               match ]                           i       ] V U Z then A E Z Q end Z Q end Z Q end ┴ 
+189  then            #45 V → λ                                 V U Z then A E Z Q end Z Q end Z Q end ┴ 
+190  then            #36 U → λ                                 U Z then A E Z Q end Z Q end Z Q end ┴ 
+191  then            #58 Z → λ                         >       Z then A E Z Q end Z Q end Z Q end ┴ 
+192  then            match then                        1       then A E Z Q end Z Q end Z Q end ┴ 
+193  begin           #9 A → begin A Q end                      A E Z Q end Z Q end Z Q end ┴ 
+194  begin           match begin                               begin A Q end E Z Q end Z Q end Z Q end ┴ 
+195  ID(t)           #6 A → ID H := S Z                        A Q end E Z Q end Z Q end Z Q end ┴ 
+196  ID(t)           match ID                          a       ID H := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+197  :=              #57 H → λ                                 H := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+198  :=              match :=                                  := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+199  ID(a)           #29 S → ID H V U                          S Z Q end E Z Q end Z Q end Z Q end ┴ 
+200  ID(a)           match ID                          a       ID H V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+201  [               #56 H → [ S ]                             H V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+202  [               match [                           7       [ S ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+203  ID(j)           #29 S → ID H V U                          S ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+204  ID(j)           match ID                          a       ID H V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+205  ]               #57 H → λ                                 H V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+206  ]               #45 V → λ                                 V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+207  ]               #36 U → λ                                 U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+208  ]               match ]                           i       ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+209  ;               #45 V → λ                                 V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+210  ;               #36 U → λ                                 U Z Q end E Z Q end Z Q end Z Q end ┴ 
+211  ;               #58 Z → λ                         :=      Z Q end E Z Q end Z Q end Z Q end ┴ 
+212  ;               #12 Q → ; A Q                             Q end E Z Q end Z Q end Z Q end ┴ 
+213  ;               match ;                                   ; A Q end E Z Q end Z Q end Z Q end ┴ 
+214  ID(a)           #6 A → ID H := S Z                        A Q end E Z Q end Z Q end Z Q end ┴ 
+215  ID(a)           match ID                          a       ID H := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+216  [               #56 H → [ S ]                             H := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+217  [               match [                           7       [ S ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+218  ID(j)           #29 S → ID H V U                          S ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+219  ID(j)           match ID                          a       ID H V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+220  ]               #57 H → λ                                 H V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+221  ]               #45 V → λ                                 V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+222  ]               #36 U → λ                                 U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+223  ]               match ]                           i       ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+224  :=              match :=                                  := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+225  ID(a)           #29 S → ID H V U                          S Z Q end E Z Q end Z Q end Z Q end ┴ 
+226  ID(a)           match ID                          a       ID H V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+227  [               #56 H → [ S ]                             H V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+228  [               match [                           7       [ S ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+229  ID(j)           #29 S → ID H V U                          S ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+230  ID(j)           match ID                          a       ID H V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+231  +               #57 H → λ                                 H V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+232  +               #45 V → λ                                 V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+233  +               #34 U → + T U                             U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+234  +               match +                                   + T U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+235  INT(1)          #39 T → INT V                             T U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+236  INT(1)          match INT                         k       INT V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+237  ]               #45 V → λ                                 V U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+238  ]               #36 U → λ                         +       U ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+239  ]               match ]                           i       ] V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+240  ;               #45 V → λ                                 V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+241  ;               #36 U → λ                                 U Z Q end E Z Q end Z Q end Z Q end ┴ 
+242  ;               #58 Z → λ                         :=      Z Q end E Z Q end Z Q end Z Q end ┴ 
+243  ;               #12 Q → ; A Q                             Q end E Z Q end Z Q end Z Q end ┴ 
+244  ;               match ;                                   ; A Q end E Z Q end Z Q end Z Q end ┴ 
+245  ID(a)           #6 A → ID H := S Z                        A Q end E Z Q end Z Q end Z Q end ┴ 
+246  ID(a)           match ID                          a       ID H := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+247  [               #56 H → [ S ]                             H := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+248  [               match [                           7       [ S ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+249  ID(j)           #29 S → ID H V U                          S ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+250  ID(j)           match ID                          a       ID H V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+251  +               #57 H → λ                                 H V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+252  +               #45 V → λ                                 V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+253  +               #34 U → + T U                             U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+254  +               match +                                   + T U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+255  INT(1)          #39 T → INT V                             T U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+256  INT(1)          match INT                         k       INT V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+257  ]               #45 V → λ                                 V U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+258  ]               #36 U → λ                         +       U ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+259  ]               match ]                           i       ] := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+260  :=              match :=                                  := S Z Q end E Z Q end Z Q end Z Q end ┴ 
+261  ID(t)           #29 S → ID H V U                          S Z Q end E Z Q end Z Q end Z Q end ┴ 
+262  ID(t)           match ID                          a       ID H V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+263  end             #57 H → λ                                 H V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+264  end             #45 V → λ                                 V U Z Q end E Z Q end Z Q end Z Q end ┴ 
+265  end             #36 U → λ                                 U Z Q end E Z Q end Z Q end Z Q end ┴ 
+266  end             #58 Z → λ                         :=      Z Q end E Z Q end Z Q end Z Q end ┴ 
+267  end             #13 Q → λ                                 Q end E Z Q end Z Q end Z Q end ┴ 
+268  end             match end                                 end E Z Q end Z Q end Z Q end ┴ 
+269  ;               #15 E → λ                                 E Z Q end Z Q end Z Q end ┴ 
+270  ;               #58 Z → λ                         3       Z Q end Z Q end Z Q end ┴ 
+271  ;               #12 Q → ; A Q                             Q end Z Q end Z Q end ┴ 
+272  ;               match ;                                   ; A Q end Z Q end Z Q end ┴ 
+273  ID(j)           #6 A → ID H := S Z                        A Q end Z Q end Z Q end ┴ 
+274  ID(j)           match ID                          a       ID H := S Z Q end Z Q end Z Q end ┴ 
+275  :=              #57 H → λ                                 H := S Z Q end Z Q end Z Q end ┴ 
+276  :=              match :=                                  := S Z Q end Z Q end Z Q end ┴ 
+277  ID(j)           #29 S → ID H V U                          S Z Q end Z Q end Z Q end ┴ 
+278  ID(j)           match ID                          a       ID H V U Z Q end Z Q end Z Q end ┴ 
+279  +               #57 H → λ                                 H V U Z Q end Z Q end Z Q end ┴ 
+280  +               #45 V → λ                                 V U Z Q end Z Q end Z Q end ┴ 
+281  +               #34 U → + T U                             U Z Q end Z Q end Z Q end ┴ 
+282  +               match +                                   + T U Z Q end Z Q end Z Q end ┴ 
+283  INT(1)          #39 T → INT V                             T U Z Q end Z Q end Z Q end ┴ 
+284  INT(1)          match INT                         k       INT V U Z Q end Z Q end Z Q end ┴ 
+285  end             #45 V → λ                                 V U Z Q end Z Q end Z Q end ┴ 
+286  end             #36 U → λ                         +       U Z Q end Z Q end Z Q end ┴ 
+287  end             #58 Z → λ                         :=      Z Q end Z Q end Z Q end ┴ 
+288  end             #13 Q → λ                                 Q end Z Q end Z Q end ┴ 
+289  end             match end                                 end Z Q end Z Q end ┴ 
+290  ;               #58 Z → λ                         5       Z Q end Z Q end ┴ 
+291  ;               #12 Q → ; A Q                             Q end Z Q end ┴ 
+292  ;               match ;                                   ; A Q end Z Q end ┴ 
+293  ID(i)           #6 A → ID H := S Z                        A Q end Z Q end ┴ 
+294  ID(i)           match ID                          a       ID H := S Z Q end Z Q end ┴ 
+295  :=              #57 H → λ                                 H := S Z Q end Z Q end ┴ 
+296  :=              match :=                                  := S Z Q end Z Q end ┴ 
+297  ID(i)           #29 S → ID H V U                          S Z Q end Z Q end ┴ 
+298  ID(i)           match ID                          a       ID H V U Z Q end Z Q end ┴ 
+299  +               #57 H → λ                                 H V U Z Q end Z Q end ┴ 
+300  +               #45 V → λ                                 V U Z Q end Z Q end ┴ 
+301  +               #34 U → + T U                             U Z Q end Z Q end ┴ 
+302  +               match +                                   + T U Z Q end Z Q end ┴ 
+303  INT(1)          #39 T → INT V                             T U Z Q end Z Q end ┴ 
+304  INT(1)          match INT                         k       INT V U Z Q end Z Q end ┴ 
+305  end             #45 V → λ                                 V U Z Q end Z Q end ┴ 
+306  end             #36 U → λ                         +       U Z Q end Z Q end ┴ 
+307  end             #58 Z → λ                         :=      Z Q end Z Q end ┴ 
+308  end             #13 Q → λ                                 Q end Z Q end ┴ 
+309  end             match end                                 end Z Q end ┴ 
+310  ;               #58 Z → λ                         5       Z Q end ┴ 
+311  ;               #12 Q → ; A Q                             Q end ┴ 
+312  ;               match ;                                   ; A Q end ┴ 
+313  ID(i)           #6 A → ID H := S Z                        A Q end ┴ 
+314  ID(i)           match ID                          a       ID H := S Z Q end ┴ 
+315  :=              #57 H → λ                                 H := S Z Q end ┴ 
+316  :=              match :=                                  := S Z Q end ┴ 
+317  INT(0)          #30 S → INT V U                           S Z Q end ┴ 
+318  INT(0)          match INT                         k       INT V U Z Q end ┴ 
+319  ;               #45 V → λ                                 V U Z Q end ┴ 
+320  ;               #36 U → λ                                 U Z Q end ┴ 
+321  ;               #58 Z → λ                         :=      Z Q end ┴ 
+322  ;               #12 Q → ; A Q                             Q end ┴ 
+323  ;               match ;                                   ; A Q end ┴ 
+324  while           #8 A → while C do A Z                     A Q end ┴ 
+325  while           match while                       4       while C do A Z Q end ┴ 
+326  ID(i)           #17 C → ID H V U D                        C do A Z Q end ┴ 
+327  ID(i)           match ID                          a       ID H V U D do A Z Q end ┴ 
+328  <               #57 H → λ                                 H V U D do A Z Q end ┴ 
+329  <               #45 V → λ                                 V U D do A Z Q end ┴ 
+330  <               #36 U → λ                                 U D do A Z Q end ┴ 
+331  <               #22 D → < S Z                             D do A Z Q end ┴ 
+332  <               match <                                   < S Z do A Z Q end ┴ 
+333  ID(n)           #29 S → ID H V U                          S Z do A Z Q end ┴ 
+334  ID(n)           match ID                          a       ID H V U Z do A Z Q end ┴ 
+335  do              #57 H → λ                                 H V U Z do A Z Q end ┴ 
+336  do              #45 V → λ                                 V U Z do A Z Q end ┴ 
+337  do              #36 U → λ                                 U Z do A Z Q end ┴ 
+338  do              #58 Z → λ                         <       Z do A Z Q end ┴ 
+339  do              match do                          1       do A Z Q end ┴ 
+340  begin           #9 A → begin A Q end                      A Z Q end ┴ 
+341  begin           match begin                               begin A Q end Z Q end ┴ 
+342  write           #11 A → write ( S )                       A Q end Z Q end ┴ 
+343  write           match write                               write ( S ) Q end Z Q end ┴ 
+344  (               match (                                   ( S ) Q end Z Q end ┴ 
+345  ID(a)           #29 S → ID H V U                          S ) Q end Z Q end ┴ 
+346  ID(a)           match ID                          a       ID H V U ) Q end Z Q end ┴ 
+347  [               #56 H → [ S ]                             H V U ) Q end Z Q end ┴ 
+348  [               match [                           7       [ S ] V U ) Q end Z Q end ┴ 
+349  ID(i)           #29 S → ID H V U                          S ] V U ) Q end Z Q end ┴ 
+350  ID(i)           match ID                          a       ID H V U ] V U ) Q end Z Q end ┴ 
+351  ]               #57 H → λ                                 H V U ] V U ) Q end Z Q end ┴ 
+352  ]               #45 V → λ                                 V U ] V U ) Q end Z Q end ┴ 
+353  ]               #36 U → λ                                 U ] V U ) Q end Z Q end ┴ 
+354  ]               match ]                           i       ] V U ) Q end Z Q end ┴ 
+355  )               #45 V → λ                                 V U ) Q end Z Q end ┴ 
+356  )               #36 U → λ                                 U ) Q end Z Q end ┴ 
+357  )               match )                           w       ) Q end Z Q end ┴ 
+358  ;               #12 Q → ; A Q                             Q end Z Q end ┴ 
+359  ;               match ;                                   ; A Q end Z Q end ┴ 
+360  ID(i)           #6 A → ID H := S Z                        A Q end Z Q end ┴ 
+361  ID(i)           match ID                          a       ID H := S Z Q end Z Q end ┴ 
+362  :=              #57 H → λ                                 H := S Z Q end Z Q end ┴ 
+363  :=              match :=                                  := S Z Q end Z Q end ┴ 
+364  ID(i)           #29 S → ID H V U                          S Z Q end Z Q end ┴ 
+365  ID(i)           match ID                          a       ID H V U Z Q end Z Q end ┴ 
+366  +               #57 H → λ                                 H V U Z Q end Z Q end ┴ 
+367  +               #45 V → λ                                 V U Z Q end Z Q end ┴ 
+368  +               #34 U → + T U                             U Z Q end Z Q end ┴ 
+369  +               match +                                   + T U Z Q end Z Q end ┴ 
+370  INT(1)          #39 T → INT V                             T U Z Q end Z Q end ┴ 
+371  INT(1)          match INT                         k       INT V U Z Q end Z Q end ┴ 
+372  end             #45 V → λ                                 V U Z Q end Z Q end ┴ 
+373  end             #36 U → λ                         +       U Z Q end Z Q end ┴ 
+374  end             #58 Z → λ                         :=      Z Q end Z Q end ┴ 
+375  end             #13 Q → λ                                 Q end Z Q end ┴ 
+376  end             match end                                 end Z Q end ┴ 
+377  end             #58 Z → λ                         5       Z Q end ┴ 
+378  end             #13 Q → λ                                 Q end ┴ 
+379  end             match end                                 end ┴ 
+380  ┴               match ┴                                   ┴ 
+Синтаксический анализ завершён: элементов ОПС 111
+=== ОПС (111 элементов) ===
+No    Kind    Item        Pos
+0     Arr     a           1:7
+1     Const   100         1:9
+2     Op      m1          1:7
+3     Var     n           3:8
+4     Op      r           3:3
+5     Var     i           4:3
+6     Const   0           4:8
+7     Op      :=          4:3
+8     Var     i           5:9
+9     Var     n           5:13
+10    Op      <           5:11
+11    Label   m24         5:3
+12    Op      jf          5:3
+13    Arr     a           5:29
+14    Var     i           5:31
+15    Op      i           5:30
+16    Op      r           5:24
+17    Var     i           5:36
+18    Var     i           5:41
+19    Const   1           5:45
+20    Op      +           5:43
+21    Op      :=          5:36
+22    Label   m8          5:3
+23    Op      j           5:3
+24    Var     i           6:3
+25    Const   0           6:8
+26    Op      :=          6:3
+27    Var     i           7:9
+28    Var     n           7:13
+29    Const   1           7:17
+30    Op      -           7:15
+31    Op      <           7:11
+32    Label   m92         7:3
+33    Op      jf          7:3
+34    Var     j           8:5
+35    Const   0           8:10
+36    Op      :=          8:5
+37    Var     j           9:11
+38    Var     n           9:15
+39    Const   1           9:19
+40    Op      -           9:17
+41    Var     i           9:23
+42    Op      -           9:21
+43    Op      <           9:13
+44    Label   m85         9:5
+45    Op      jf          9:5
+46    Arr     a           10:10
+47    Var     j           10:12
+48    Op      i           10:11
+49    Arr     a           10:17
+50    Var     j           10:19
+51    Const   1           10:23
+52    Op      +           10:21
+53    Op      i           10:18
+54    Op      >           10:15
+55    Label   m78         10:7
+56    Op      jf          10:7
+57    Var     t           11:9
+58    Arr     a           11:14
+59    Var     j           11:16
+60    Op      i           11:15
+61    Op      :=          11:9
+62    Arr     a           11:20
+63    Var     j           11:22
+64    Op      i           11:21
+65    Arr     a           11:28
+66    Var     j           11:30
+67    Const   1           11:34
+68    Op      +           11:32
+69    Op      i           11:29
+70    Op      :=          11:20
+71    Arr     a           11:38
+72    Var     j           11:40
+73    Const   1           11:44
+74    Op      +           11:42
+75    Op      i           11:39
+76    Var     t           11:50
+77    Op      :=          11:38
+78    Var     j           13:7
+79    Var     j           13:12
+80    Const   1           13:16
+81    Op      +           13:14
+82    Op      :=          13:7
+83    Label   m37         9:5
+84    Op      j           9:5
+85    Var     i           15:5
+86    Var     i           15:10
+87    Const   1           15:14
+88    Op      +           15:12
+89    Op      :=          15:5
+90    Label   m27         7:3
+91    Op      j           7:3
+92    Var     i           17:3
+93    Const   0           17:8
+94    Op      :=          17:3
+95    Var     i           18:9
+96    Var     n           18:13
+97    Op      <           18:11
+98    Label   m111        18:3
+99    Op      jf          18:3
+100   Arr     a           18:30
+101   Var     i           18:32
+102   Op      i           18:31
+103   Op      w           18:24
+104   Var     i           18:37
+105   Var     i           18:42
+106   Const   1           18:46
+107   Op      +           18:44
+108   Op      :=          18:37
+109   Label   m95         18:3
+110   Op      j           18:3
+=== Таблицы имён ===
+Переменные (4): 0=n 1=i 2=j 3=t
+Массивы (1): 0=a
+=== Выполнение ОПС ===
+Step   No    Element   Stack
+1      0     a         a 
+2      1     100       a 100 
+3      2     m1        
+4      3     n         n 
+5      4     r         
+6      5     i         i 
+7      6     0         i 0 
+8      7     :=        
+9      8     i         i 
+10     9     n         i n 
+11     10    <         true 
+12     11    m24       true m24 
+13     12    jf        
+14     13    a         a 
+15     14    i         a i 
+16     15    i         a[0] 
+17     16    r         
+18     17    i         i 
+19     18    i         i i 
+20     19    1         i i 1 
+21     20    +         i 1 
+22     21    :=        
+23     22    m8        m8 
+24     23    j         
+25     8     i         i 
+26     9     n         i n 
+27     10    <         true 
+28     11    m24       true m24 
+29     12    jf        
+30     13    a         a 
+31     14    i         a i 
+32     15    i         a[1] 
+33     16    r         
+34     17    i         i 
+35     18    i         i i 
+36     19    1         i i 1 
+37     20    +         i 2 
+38     21    :=        
+39     22    m8        m8 
+40     23    j         
+41     8     i         i 
+42     9     n         i n 
+43     10    <         true 
+44     11    m24       true m24 
+45     12    jf        
+46     13    a         a 
+47     14    i         a i 
+48     15    i         a[2] 
+49     16    r         
+50     17    i         i 
+51     18    i         i i 
+52     19    1         i i 1 
+53     20    +         i 3 
+54     21    :=        
+55     22    m8        m8 
+56     23    j         
+57     8     i         i 
+58     9     n         i n 
+59     10    <         true 
+60     11    m24       true m24 
+61     12    jf        
+62     13    a         a 
+63     14    i         a i 
+64     15    i         a[3] 
+65     16    r         
+66     17    i         i 
+67     18    i         i i 
+68     19    1         i i 1 
+69     20    +         i 4 
+70     21    :=        
+71     22    m8        m8 
+72     23    j         
+73     8     i         i 
+74     9     n         i n 
+75     10    <         true 
+76     11    m24       true m24 
+77     12    jf        
+78     13    a         a 
+79     14    i         a i 
+80     15    i         a[4] 
+81     16    r         
+82     17    i         i 
+83     18    i         i i 
+84     19    1         i i 1 
+85     20    +         i 5 
+86     21    :=        
+87     22    m8        m8 
+88     23    j         
+89     8     i         i 
+90     9     n         i n 
+91     10    <         true 
+92     11    m24       true m24 
+93     12    jf        
+94     13    a         a 
+95     14    i         a i 
+96     15    i         a[5] 
+97     16    r         
+98     17    i         i 
+99     18    i         i i 
+100    19    1         i i 1 
+101    20    +         i 6 
+102    21    :=        
+103    22    m8        m8 
+104    23    j         
+105    8     i         i 
+106    9     n         i n 
+107    10    <         true 
+108    11    m24       true m24 
+109    12    jf        
+110    13    a         a 
+111    14    i         a i 
+112    15    i         a[6] 
+113    16    r         
+114    17    i         i 
+115    18    i         i i 
+116    19    1         i i 1 
+117    20    +         i 7 
+118    21    :=        
+119    22    m8        m8 
+120    23    j         
+121    8     i         i 
+122    9     n         i n 
+123    10    <         false 
+124    11    m24       false m24 
+125    12    jf        
+126    24    i         i 
+127    25    0         i 0 
+128    26    :=        
+129    27    i         i 
+130    28    n         i n 
+131    29    1         i n 1 
+132    30    -         i 6 
+133    31    <         true 
+134    32    m92       true m92 
+135    33    jf        
+136    34    j         j 
+137    35    0         j 0 
+138    36    :=        
+139    37    j         j 
+140    38    n         j n 
+141    39    1         j n 1 
+142    40    -         j 6 
+143    41    i         j 6 i 
+144    42    -         j 6 
+145    43    <         true 
+146    44    m85       true m85 
+147    45    jf        
+148    46    a         a 
+149    47    j         a j 
+150    48    i         a[0] 
+151    49    a         a[0] a 
+152    50    j         a[0] a j 
+153    51    1         a[0] a j 1 
+154    52    +         a[0] a 1 
+155    53    i         a[0] a[1] 
+156    54    >         true 
+157    55    m78       true m78 
+158    56    jf        
+159    57    t         t 
+160    58    a         t a 
+161    59    j         t a j 
+162    60    i         t a[0] 
+163    61    :=        
+164    62    a         a 
+165    63    j         a j 
+166    64    i         a[0] 
+167    65    a         a[0] a 
+168    66    j         a[0] a j 
+169    67    1         a[0] a j 1 
+170    68    +         a[0] a 1 
+171    69    i         a[0] a[1] 
+172    70    :=        
+173    71    a         a 
+174    72    j         a j 
+175    73    1         a j 1 
+176    74    +         a 1 
+177    75    i         a[1] 
+178    76    t         a[1] t 
+179    77    :=        
+180    78    j         j 
+181    79    j         j j 
+182    80    1         j j 1 
+183    81    +         j 1 
+184    82    :=        
+185    83    m37       m37 
+186    84    j         
+187    37    j         j 
+188    38    n         j n 
+189    39    1         j n 1 
+190    40    -         j 6 
+191    41    i         j 6 i 
+192    42    -         j 6 
+193    43    <         true 
+194    44    m85       true m85 
+195    45    jf        
+196    46    a         a 
+197    47    j         a j 
+198    48    i         a[1] 
+199    49    a         a[1] a 
+200    50    j         a[1] a j 
+201    51    1         a[1] a j 1 
+202    52    +         a[1] a 2 
+203    53    i         a[1] a[2] 
+204    54    >         true 
+205    55    m78       true m78 
+206    56    jf        
+207    57    t         t 
+208    58    a         t a 
+209    59    j         t a j 
+210    60    i         t a[1] 
+211    61    :=        
+212    62    a         a 
+213    63    j         a j 
+214    64    i         a[1] 
+215    65    a         a[1] a 
+216    66    j         a[1] a j 
+217    67    1         a[1] a j 1 
+218    68    +         a[1] a 2 
+219    69    i         a[1] a[2] 
+220    70    :=        
+221    71    a         a 
+222    72    j         a j 
+223    73    1         a j 1 
+224    74    +         a 2 
+225    75    i         a[2] 
+226    76    t         a[2] t 
+227    77    :=        
+228    78    j         j 
+229    79    j         j j 
+230    80    1         j j 1 
+231    81    +         j 2 
+232    82    :=        
+233    83    m37       m37 
+234    84    j         
+235    37    j         j 
+236    38    n         j n 
+237    39    1         j n 1 
+238    40    -         j 6 
+239    41    i         j 6 i 
+240    42    -         j 6 
+241    43    <         true 
+242    44    m85       true m85 
+243    45    jf        
+244    46    a         a 
+245    47    j         a j 
+246    48    i         a[2] 
+247    49    a         a[2] a 
+248    50    j         a[2] a j 
+249    51    1         a[2] a j 1 
+250    52    +         a[2] a 3 
+251    53    i         a[2] a[3] 
+252    54    >         false 
+253    55    m78       false m78 
+254    56    jf        
+255    78    j         j 
+256    79    j         j j 
+257    80    1         j j 1 
+258    81    +         j 3 
+259    82    :=        
+260    83    m37       m37 
+261    84    j         
+262    37    j         j 
+263    38    n         j n 
+264    39    1         j n 1 
+265    40    -         j 6 
+266    41    i         j 6 i 
+267    42    -         j 6 
+268    43    <         true 
+269    44    m85       true m85 
+270    45    jf        
+271    46    a         a 
+272    47    j         a j 
+273    48    i         a[3] 
+274    49    a         a[3] a 
+275    50    j         a[3] a j 
+276    51    1         a[3] a j 1 
+277    52    +         a[3] a 4 
+278    53    i         a[3] a[4] 
+279    54    >         true 
+280    55    m78       true m78 
+281    56    jf        
+282    57    t         t 
+283    58    a         t a 
+284    59    j         t a j 
+285    60    i         t a[3] 
+286    61    :=        
+287    62    a         a 
+288    63    j         a j 
+289    64    i         a[3] 
+290    65    a         a[3] a 
+291    66    j         a[3] a j 
+292    67    1         a[3] a j 1 
+293    68    +         a[3] a 4 
+294    69    i         a[3] a[4] 
+295    70    :=        
+296    71    a         a 
+297    72    j         a j 
+298    73    1         a j 1 
+299    74    +         a 4 
+300    75    i         a[4] 
+301    76    t         a[4] t 
+302    77    :=        
+303    78    j         j 
+304    79    j         j j 
+305    80    1         j j 1 
+306    81    +         j 4 
+307    82    :=        
+308    83    m37       m37 
+309    84    j         
+310    37    j         j 
+311    38    n         j n 
+312    39    1         j n 1 
+313    40    -         j 6 
+314    41    i         j 6 i 
+315    42    -         j 6 
+316    43    <         true 
+317    44    m85       true m85 
+318    45    jf        
+319    46    a         a 
+320    47    j         a j 
+321    48    i         a[4] 
+322    49    a         a[4] a 
+323    50    j         a[4] a j 
+324    51    1         a[4] a j 1 
+325    52    +         a[4] a 5 
+326    53    i         a[4] a[5] 
+327    54    >         true 
+328    55    m78       true m78 
+329    56    jf        
+330    57    t         t 
+331    58    a         t a 
+332    59    j         t a j 
+333    60    i         t a[4] 
+334    61    :=        
+335    62    a         a 
+336    63    j         a j 
+337    64    i         a[4] 
+338    65    a         a[4] a 
+339    66    j         a[4] a j 
+340    67    1         a[4] a j 1 
+341    68    +         a[4] a 5 
+342    69    i         a[4] a[5] 
+343    70    :=        
+344    71    a         a 
+345    72    j         a j 
+346    73    1         a j 1 
+347    74    +         a 5 
+348    75    i         a[5] 
+349    76    t         a[5] t 
+350    77    :=        
+351    78    j         j 
+352    79    j         j j 
+353    80    1         j j 1 
+354    81    +         j 5 
+355    82    :=        
+356    83    m37       m37 
+357    84    j         
+358    37    j         j 
+359    38    n         j n 
+360    39    1         j n 1 
+361    40    -         j 6 
+362    41    i         j 6 i 
+363    42    -         j 6 
+364    43    <         true 
+365    44    m85       true m85 
+366    45    jf        
+367    46    a         a 
+368    47    j         a j 
+369    48    i         a[5] 
+370    49    a         a[5] a 
+371    50    j         a[5] a j 
+372    51    1         a[5] a j 1 
+373    52    +         a[5] a 6 
+374    53    i         a[5] a[6] 
+375    54    >         true 
+376    55    m78       true m78 
+377    56    jf        
+378    57    t         t 
+379    58    a         t a 
+380    59    j         t a j 
+381    60    i         t a[5] 
+382    61    :=        
+383    62    a         a 
+384    63    j         a j 
+385    64    i         a[5] 
+386    65    a         a[5] a 
+387    66    j         a[5] a j 
+388    67    1         a[5] a j 1 
+389    68    +         a[5] a 6 
+390    69    i         a[5] a[6] 
+391    70    :=        
+392    71    a         a 
+393    72    j         a j 
+394    73    1         a j 1 
+395    74    +         a 6 
+396    75    i         a[6] 
+397    76    t         a[6] t 
+398    77    :=        
+399    78    j         j 
+400    79    j         j j 
+401    80    1         j j 1 
+402    81    +         j 6 
+403    82    :=        
+404    83    m37       m37 
+405    84    j         
+406    37    j         j 
+407    38    n         j n 
+408    39    1         j n 1 
+409    40    -         j 6 
+410    41    i         j 6 i 
+411    42    -         j 6 
+412    43    <         false 
+413    44    m85       false m85 
+414    45    jf        
+415    85    i         i 
+416    86    i         i i 
+417    87    1         i i 1 
+418    88    +         i 1 
+419    89    :=        
+420    90    m27       m27 
+421    91    j         
+422    27    i         i 
+423    28    n         i n 
+424    29    1         i n 1 
+425    30    -         i 6 
+426    31    <         true 
+427    32    m92       true m92 
+428    33    jf        
+429    34    j         j 
+430    35    0         j 0 
+431    36    :=        
+432    37    j         j 
+433    38    n         j n 
+434    39    1         j n 1 
+435    40    -         j 6 
+436    41    i         j 6 i 
+437    42    -         j 5 
+438    43    <         true 
+439    44    m85       true m85 
+440    45    jf        
+441    46    a         a 
+442    47    j         a j 
+443    48    i         a[0] 
+444    49    a         a[0] a 
+445    50    j         a[0] a j 
+446    51    1         a[0] a j 1 
+447    52    +         a[0] a 1 
+448    53    i         a[0] a[1] 
+449    54    >         true 
+450    55    m78       true m78 
+451    56    jf        
+452    57    t         t 
+453    58    a         t a 
+454    59    j         t a j 
+455    60    i         t a[0] 
+456    61    :=        
+457    62    a         a 
+458    63    j         a j 
+459    64    i         a[0] 
+460    65    a         a[0] a 
+461    66    j         a[0] a j 
+462    67    1         a[0] a j 1 
+463    68    +         a[0] a 1 
+464    69    i         a[0] a[1] 
+465    70    :=        
+466    71    a         a 
+467    72    j         a j 
+468    73    1         a j 1 
+469    74    +         a 1 
+470    75    i         a[1] 
+471    76    t         a[1] t 
+472    77    :=        
+473    78    j         j 
+474    79    j         j j 
+475    80    1         j j 1 
+476    81    +         j 1 
+477    82    :=        
+478    83    m37       m37 
+479    84    j         
+480    37    j         j 
+481    38    n         j n 
+482    39    1         j n 1 
+483    40    -         j 6 
+484    41    i         j 6 i 
+485    42    -         j 5 
+486    43    <         true 
+487    44    m85       true m85 
+488    45    jf        
+489    46    a         a 
+490    47    j         a j 
+491    48    i         a[1] 
+492    49    a         a[1] a 
+493    50    j         a[1] a j 
+494    51    1         a[1] a j 1 
+495    52    +         a[1] a 2 
+496    53    i         a[1] a[2] 
+497    54    >         false 
+498    55    m78       false m78 
+499    56    jf        
+500    78    j         j 
+501    79    j         j j 
+502    80    1         j j 1 
+503    81    +         j 2 
+504    82    :=        
+505    83    m37       m37 
+506    84    j         
+507    37    j         j 
+508    38    n         j n 
+509    39    1         j n 1 
+510    40    -         j 6 
+511    41    i         j 6 i 
+512    42    -         j 5 
+513    43    <         true 
+514    44    m85       true m85 
+515    45    jf        
+516    46    a         a 
+517    47    j         a j 
+518    48    i         a[2] 
+519    49    a         a[2] a 
+520    50    j         a[2] a j 
+521    51    1         a[2] a j 1 
+522    52    +         a[2] a 3 
+523    53    i         a[2] a[3] 
+524    54    >         true 
+525    55    m78       true m78 
+526    56    jf        
+527    57    t         t 
+528    58    a         t a 
+529    59    j         t a j 
+530    60    i         t a[2] 
+531    61    :=        
+532    62    a         a 
+533    63    j         a j 
+534    64    i         a[2] 
+535    65    a         a[2] a 
+536    66    j         a[2] a j 
+537    67    1         a[2] a j 1 
+538    68    +         a[2] a 3 
+539    69    i         a[2] a[3] 
+540    70    :=        
+541    71    a         a 
+542    72    j         a j 
+543    73    1         a j 1 
+544    74    +         a 3 
+545    75    i         a[3] 
+546    76    t         a[3] t 
+547    77    :=        
+548    78    j         j 
+549    79    j         j j 
+550    80    1         j j 1 
+551    81    +         j 3 
+552    82    :=        
+553    83    m37       m37 
+554    84    j         
+555    37    j         j 
+556    38    n         j n 
+557    39    1         j n 1 
+558    40    -         j 6 
+559    41    i         j 6 i 
+560    42    -         j 5 
+561    43    <         true 
+562    44    m85       true m85 
+563    45    jf        
+564    46    a         a 
+565    47    j         a j 
+566    48    i         a[3] 
+567    49    a         a[3] a 
+568    50    j         a[3] a j 
+569    51    1         a[3] a j 1 
+570    52    +         a[3] a 4 
+571    53    i         a[3] a[4] 
+572    54    >         false 
+573    55    m78       false m78 
+574    56    jf        
+575    78    j         j 
+576    79    j         j j 
+577    80    1         j j 1 
+578    81    +         j 4 
+579    82    :=        
+580    83    m37       m37 
+581    84    j         
+582    37    j         j 
+583    38    n         j n 
+584    39    1         j n 1 
+585    40    -         j 6 
+586    41    i         j 6 i 
+587    42    -         j 5 
+588    43    <         true 
+589    44    m85       true m85 
+590    45    jf        
+591    46    a         a 
+592    47    j         a j 
+593    48    i         a[4] 
+594    49    a         a[4] a 
+595    50    j         a[4] a j 
+596    51    1         a[4] a j 1 
+597    52    +         a[4] a 5 
+598    53    i         a[4] a[5] 
+599    54    >         true 
+600    55    m78       true m78 
+601    56    jf        
+602    57    t         t 
+603    58    a         t a 
+604    59    j         t a j 
+605    60    i         t a[4] 
+606    61    :=        
+607    62    a         a 
+608    63    j         a j 
+609    64    i         a[4] 
+610    65    a         a[4] a 
+611    66    j         a[4] a j 
+612    67    1         a[4] a j 1 
+613    68    +         a[4] a 5 
+614    69    i         a[4] a[5] 
+615    70    :=        
+616    71    a         a 
+617    72    j         a j 
+618    73    1         a j 1 
+619    74    +         a 5 
+620    75    i         a[5] 
+621    76    t         a[5] t 
+622    77    :=        
+623    78    j         j 
+624    79    j         j j 
+625    80    1         j j 1 
+626    81    +         j 5 
+627    82    :=        
+628    83    m37       m37 
+629    84    j         
+630    37    j         j 
+631    38    n         j n 
+632    39    1         j n 1 
+633    40    -         j 6 
+634    41    i         j 6 i 
+635    42    -         j 5 
+636    43    <         false 
+637    44    m85       false m85 
+638    45    jf        
+639    85    i         i 
+640    86    i         i i 
+641    87    1         i i 1 
+642    88    +         i 2 
+643    89    :=        
+644    90    m27       m27 
+645    91    j         
+646    27    i         i 
+647    28    n         i n 
+648    29    1         i n 1 
+649    30    -         i 6 
+650    31    <         true 
+651    32    m92       true m92 
+652    33    jf        
+653    34    j         j 
+654    35    0         j 0 
+655    36    :=        
+656    37    j         j 
+657    38    n         j n 
+658    39    1         j n 1 
+659    40    -         j 6 
+660    41    i         j 6 i 
+661    42    -         j 4 
+662    43    <         true 
+663    44    m85       true m85 
+664    45    jf        
+665    46    a         a 
+666    47    j         a j 
+667    48    i         a[0] 
+668    49    a         a[0] a 
+669    50    j         a[0] a j 
+670    51    1         a[0] a j 1 
+671    52    +         a[0] a 1 
+672    53    i         a[0] a[1] 
+673    54    >         false 
+674    55    m78       false m78 
+675    56    jf        
+676    78    j         j 
+677    79    j         j j 
+678    80    1         j j 1 
+679    81    +         j 1 
+680    82    :=        
+681    83    m37       m37 
+682    84    j         
+683    37    j         j 
+684    38    n         j n 
+685    39    1         j n 1 
+686    40    -         j 6 
+687    41    i         j 6 i 
+688    42    -         j 4 
+689    43    <         true 
+690    44    m85       true m85 
+691    45    jf        
+692    46    a         a 
+693    47    j         a j 
+694    48    i         a[1] 
+695    49    a         a[1] a 
+696    50    j         a[1] a j 
+697    51    1         a[1] a j 1 
+698    52    +         a[1] a 2 
+699    53    i         a[1] a[2] 
+700    54    >         true 
+701    55    m78       true m78 
+702    56    jf        
+703    57    t         t 
+704    58    a         t a 
+705    59    j         t a j 
+706    60    i         t a[1] 
+707    61    :=        
+708    62    a         a 
+709    63    j         a j 
+710    64    i         a[1] 
+711    65    a         a[1] a 
+712    66    j         a[1] a j 
+713    67    1         a[1] a j 1 
+714    68    +         a[1] a 2 
+715    69    i         a[1] a[2] 
+716    70    :=        
+717    71    a         a 
+718    72    j         a j 
+719    73    1         a j 1 
+720    74    +         a 2 
+721    75    i         a[2] 
+722    76    t         a[2] t 
+723    77    :=        
+724    78    j         j 
+725    79    j         j j 
+726    80    1         j j 1 
+727    81    +         j 2 
+728    82    :=        
+729    83    m37       m37 
+730    84    j         
+731    37    j         j 
+732    38    n         j n 
+733    39    1         j n 1 
+734    40    -         j 6 
+735    41    i         j 6 i 
+736    42    -         j 4 
+737    43    <         true 
+738    44    m85       true m85 
+739    45    jf        
+740    46    a         a 
+741    47    j         a j 
+742    48    i         a[2] 
+743    49    a         a[2] a 
+744    50    j         a[2] a j 
+745    51    1         a[2] a j 1 
+746    52    +         a[2] a 3 
+747    53    i         a[2] a[3] 
+748    54    >         false 
+749    55    m78       false m78 
+750    56    jf        
+751    78    j         j 
+752    79    j         j j 
+753    80    1         j j 1 
+754    81    +         j 3 
+755    82    :=        
+756    83    m37       m37 
+757    84    j         
+758    37    j         j 
+759    38    n         j n 
+760    39    1         j n 1 
+761    40    -         j 6 
+762    41    i         j 6 i 
+763    42    -         j 4 
+764    43    <         true 
+765    44    m85       true m85 
+766    45    jf        
+767    46    a         a 
+768    47    j         a j 
+769    48    i         a[3] 
+770    49    a         a[3] a 
+771    50    j         a[3] a j 
+772    51    1         a[3] a j 1 
+773    52    +         a[3] a 4 
+774    53    i         a[3] a[4] 
+775    54    >         true 
+776    55    m78       true m78 
+777    56    jf        
+778    57    t         t 
+779    58    a         t a 
+780    59    j         t a j 
+781    60    i         t a[3] 
+782    61    :=        
+783    62    a         a 
+784    63    j         a j 
+785    64    i         a[3] 
+786    65    a         a[3] a 
+787    66    j         a[3] a j 
+788    67    1         a[3] a j 1 
+789    68    +         a[3] a 4 
+790    69    i         a[3] a[4] 
+791    70    :=        
+792    71    a         a 
+793    72    j         a j 
+794    73    1         a j 1 
+795    74    +         a 4 
+796    75    i         a[4] 
+797    76    t         a[4] t 
+798    77    :=        
+799    78    j         j 
+800    79    j         j j 
+801    80    1         j j 1 
+802    81    +         j 4 
+803    82    :=        
+804    83    m37       m37 
+805    84    j         
+806    37    j         j 
+807    38    n         j n 
+808    39    1         j n 1 
+809    40    -         j 6 
+810    41    i         j 6 i 
+811    42    -         j 4 
+812    43    <         false 
+813    44    m85       false m85 
+814    45    jf        
+815    85    i         i 
+816    86    i         i i 
+817    87    1         i i 1 
+818    88    +         i 3 
+819    89    :=        
+820    90    m27       m27 
+821    91    j         
+822    27    i         i 
+823    28    n         i n 
+824    29    1         i n 1 
+825    30    -         i 6 
+826    31    <         true 
+827    32    m92       true m92 
+828    33    jf        
+829    34    j         j 
+830    35    0         j 0 
+831    36    :=        
+832    37    j         j 
+833    38    n         j n 
+834    39    1         j n 1 
+835    40    -         j 6 
+836    41    i         j 6 i 
+837    42    -         j 3 
+838    43    <         true 
+839    44    m85       true m85 
+840    45    jf        
+841    46    a         a 
+842    47    j         a j 
+843    48    i         a[0] 
+844    49    a         a[0] a 
+845    50    j         a[0] a j 
+846    51    1         a[0] a j 1 
+847    52    +         a[0] a 1 
+848    53    i         a[0] a[1] 
+849    54    >         false 
+850    55    m78       false m78 
+851    56    jf        
+852    78    j         j 
+853    79    j         j j 
+854    80    1         j j 1 
+855    81    +         j 1 
+856    82    :=        
+857    83    m37       m37 
+858    84    j         
+859    37    j         j 
+860    38    n         j n 
+861    39    1         j n 1 
+862    40    -         j 6 
+863    41    i         j 6 i 
+864    42    -         j 3 
+865    43    <         true 
+866    44    m85       true m85 
+867    45    jf        
+868    46    a         a 
+869    47    j         a j 
+870    48    i         a[1] 
+871    49    a         a[1] a 
+872    50    j         a[1] a j 
+873    51    1         a[1] a j 1 
+874    52    +         a[1] a 2 
+875    53    i         a[1] a[2] 
+876    54    >         false 
+877    55    m78       false m78 
+878    56    jf        
+879    78    j         j 
+880    79    j         j j 
+881    80    1         j j 1 
+882    81    +         j 2 
+883    82    :=        
+884    83    m37       m37 
+885    84    j         
+886    37    j         j 
+887    38    n         j n 
+888    39    1         j n 1 
+889    40    -         j 6 
+890    41    i         j 6 i 
+891    42    -         j 3 
+892    43    <         true 
+893    44    m85       true m85 
+894    45    jf        
+895    46    a         a 
+896    47    j         a j 
+897    48    i         a[2] 
+898    49    a         a[2] a 
+899    50    j         a[2] a j 
+900    51    1         a[2] a j 1 
+901    52    +         a[2] a 3 
+902    53    i         a[2] a[3] 
+903    54    >         false 
+904    55    m78       false m78 
+905    56    jf        
+906    78    j         j 
+907    79    j         j j 
+908    80    1         j j 1 
+909    81    +         j 3 
+910    82    :=        
+911    83    m37       m37 
+912    84    j         
+913    37    j         j 
+914    38    n         j n 
+915    39    1         j n 1 
+916    40    -         j 6 
+917    41    i         j 6 i 
+918    42    -         j 3 
+919    43    <         false 
+920    44    m85       false m85 
+921    45    jf        
+922    85    i         i 
+923    86    i         i i 
+924    87    1         i i 1 
+925    88    +         i 4 
+926    89    :=        
+927    90    m27       m27 
+928    91    j         
+929    27    i         i 
+930    28    n         i n 
+931    29    1         i n 1 
+932    30    -         i 6 
+933    31    <         true 
+934    32    m92       true m92 
+935    33    jf        
+936    34    j         j 
+937    35    0         j 0 
+938    36    :=        
+939    37    j         j 
+940    38    n         j n 
+941    39    1         j n 1 
+942    40    -         j 6 
+943    41    i         j 6 i 
+944    42    -         j 2 
+945    43    <         true 
+946    44    m85       true m85 
+947    45    jf        
+948    46    a         a 
+949    47    j         a j 
+950    48    i         a[0] 
+951    49    a         a[0] a 
+952    50    j         a[0] a j 
+953    51    1         a[0] a j 1 
+954    52    +         a[0] a 1 
+955    53    i         a[0] a[1] 
+956    54    >         false 
+957    55    m78       false m78 
+958    56    jf        
+959    78    j         j 
+960    79    j         j j 
+961    80    1         j j 1 
+962    81    +         j 1 
+963    82    :=        
+964    83    m37       m37 
+965    84    j         
+966    37    j         j 
+967    38    n         j n 
+968    39    1         j n 1 
+969    40    -         j 6 
+970    41    i         j 6 i 
+971    42    -         j 2 
+972    43    <         true 
+973    44    m85       true m85 
+974    45    jf        
+975    46    a         a 
+976    47    j         a j 
+977    48    i         a[1] 
+978    49    a         a[1] a 
+979    50    j         a[1] a j 
+980    51    1         a[1] a j 1 
+981    52    +         a[1] a 2 
+982    53    i         a[1] a[2] 
+983    54    >         false 
+984    55    m78       false m78 
+985    56    jf        
+986    78    j         j 
+987    79    j         j j 
+988    80    1         j j 1 
+989    81    +         j 2 
+990    82    :=        
+991    83    m37       m37 
+992    84    j         
+993    37    j         j 
+994    38    n         j n 
+995    39    1         j n 1 
+996    40    -         j 6 
+997    41    i         j 6 i 
+998    42    -         j 2 
+999    43    <         false 
+1000   44    m85       false m85 
+1001   45    jf        
+1002   85    i         i 
+1003   86    i         i i 
+1004   87    1         i i 1 
+1005   88    +         i 5 
+1006   89    :=        
+1007   90    m27       m27 
+1008   91    j         
+1009   27    i         i 
+1010   28    n         i n 
+1011   29    1         i n 1 
+1012   30    -         i 6 
+1013   31    <         true 
+1014   32    m92       true m92 
+1015   33    jf        
+1016   34    j         j 
+1017   35    0         j 0 
+1018   36    :=        
+1019   37    j         j 
+1020   38    n         j n 
+1021   39    1         j n 1 
+1022   40    -         j 6 
+1023   41    i         j 6 i 
+1024   42    -         j 1 
+1025   43    <         true 
+1026   44    m85       true m85 
+1027   45    jf        
+1028   46    a         a 
+1029   47    j         a j 
+1030   48    i         a[0] 
+1031   49    a         a[0] a 
+1032   50    j         a[0] a j 
+1033   51    1         a[0] a j 1 
+1034   52    +         a[0] a 1 
+1035   53    i         a[0] a[1] 
+1036   54    >         false 
+1037   55    m78       false m78 
+1038   56    jf        
+1039   78    j         j 
+1040   79    j         j j 
+1041   80    1         j j 1 
+1042   81    +         j 1 
+1043   82    :=        
+1044   83    m37       m37 
+1045   84    j         
+1046   37    j         j 
+1047   38    n         j n 
+1048   39    1         j n 1 
+1049   40    -         j 6 
+1050   41    i         j 6 i 
+1051   42    -         j 1 
+1052   43    <         false 
+1053   44    m85       false m85 
+1054   45    jf        
+1055   85    i         i 
+1056   86    i         i i 
+1057   87    1         i i 1 
+1058   88    +         i 6 
+1059   89    :=        
+1060   90    m27       m27 
+1061   91    j         
+1062   27    i         i 
+1063   28    n         i n 
+1064   29    1         i n 1 
+1065   30    -         i 6 
+1066   31    <         false 
+1067   32    m92       false m92 
+1068   33    jf        
+1069   92    i         i 
+1070   93    0         i 0 
+1071   94    :=        
+1072   95    i         i 
+1073   96    n         i n 
+1074   97    <         true 
+1075   98    m111      true m111 
+1076   99    jf        
+1077   100   a         a 
+1078   101   i         a i 
+1079   102   i         a[0] 
+1080   103   w         
+1081   104   i         i 
+1082   105   i         i i 
+1083   106   1         i i 1 
+1084   107   +         i 1 
+1085   108   :=        
+1086   109   m95       m95 
+1087   110   j         
+1088   95    i         i 
+1089   96    n         i n 
+1090   97    <         true 
+1091   98    m111      true m111 
+1092   99    jf        
+1093   100   a         a 
+1094   101   i         a i 
+1095   102   i         a[1] 
+1096   103   w         
+1097   104   i         i 
+1098   105   i         i i 
+1099   106   1         i i 1 
+1100   107   +         i 2 
+1101   108   :=        
+1102   109   m95       m95 
+1103   110   j         
+1104   95    i         i 
+1105   96    n         i n 
+1106   97    <         true 
+1107   98    m111      true m111 
+1108   99    jf        
+1109   100   a         a 
+1110   101   i         a i 
+1111   102   i         a[2] 
+1112   103   w         
+1113   104   i         i 
+1114   105   i         i i 
+1115   106   1         i i 1 
+1116   107   +         i 3 
+1117   108   :=        
+1118   109   m95       m95 
+1119   110   j         
+1120   95    i         i 
+1121   96    n         i n 
+1122   97    <         true 
+1123   98    m111      true m111 
+1124   99    jf        
+1125   100   a         a 
+1126   101   i         a i 
+1127   102   i         a[3] 
+1128   103   w         
+1129   104   i         i 
+1130   105   i         i i 
+1131   106   1         i i 1 
+1132   107   +         i 4 
+1133   108   :=        
+1134   109   m95       m95 
+1135   110   j         
+1136   95    i         i 
+1137   96    n         i n 
+1138   97    <         true 
+1139   98    m111      true m111 
+1140   99    jf        
+1141   100   a         a 
+1142   101   i         a i 
+1143   102   i         a[4] 
+1144   103   w         
+1145   104   i         i 
+1146   105   i         i i 
+1147   106   1         i i 1 
+1148   107   +         i 5 
+1149   108   :=        
+1150   109   m95       m95 
+1151   110   j         
+1152   95    i         i 
+1153   96    n         i n 
+1154   97    <         true 
+1155   98    m111      true m111 
+1156   99    jf        
+1157   100   a         a 
+1158   101   i         a i 
+1159   102   i         a[5] 
+1160   103   w         
+1161   104   i         i 
+1162   105   i         i i 
+1163   106   1         i i 1 
+1164   107   +         i 6 
+1165   108   :=        
+1166   109   m95       m95 
+1167   110   j         
+1168   95    i         i 
+1169   96    n         i n 
+1170   97    <         true 
+1171   98    m111      true m111 
+1172   99    jf        
+1173   100   a         a 
+1174   101   i         a i 
+1175   102   i         a[6] 
+1176   103   w         
+1177   104   i         i 
+1178   105   i         i i 
+1179   106   1         i i 1 
+1180   107   +         i 7 
+1181   108   :=        
+1182   109   m95       m95 
+1183   110   j         
+1184   95    i         i 
+1185   96    n         i n 
+1186   97    <         false 
+1187   98    m111      false m111 
+1188   99    jf        
+=== Память ===
+n = 7
+i = 7
+j = 1
+t = 5
+a[100]: [0]=-1 [1]=0 [2]=2.5 [3]=3.25 [4]=5 [5]=7 [6]=9

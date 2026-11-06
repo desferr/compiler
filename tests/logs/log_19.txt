@@ -1,0 +1,105 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       26   BEGIN             begin
+2:3       1    ID                x
+2:5       4    ASSIGN            :=
+2:8       2    INT               5    [int = 5]
+2:9       14   SEMICOLON         ;
+3:3       29   WRITE             write
+3:8       9    LEFTPARENTHES     (
+3:9       1    ID                x
+3:10      10   RIGHTPARENTHES    )
+3:11      14   SEMICOLON         ;
+4:3       1    ID                y
+4:5       4    ASSIGN            :=
+4:8       1    ID                x
+4:10      5    PLUS              +
+4:12      1    ID                z
+4:14      7    MULTIPLICATION    *
+4:16      2    INT               2    [int = 2]
+5:1       27   END               end
+6:1       31   EOF               EOF
+Лексический анализ завершён: лексем 19 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    begin           #2 P → begin A Q end                      P ┴ 
+2    begin           match begin                               begin A Q end ┴ 
+3    ID(x)           #6 A → ID H := S Z                        A Q end ┴ 
+4    ID(x)           match ID                          a       ID H := S Z Q end ┴ 
+5    :=              #57 H → λ                                 H := S Z Q end ┴ 
+6    :=              match :=                                  := S Z Q end ┴ 
+7    INT(5)          #30 S → INT V U                           S Z Q end ┴ 
+8    INT(5)          match INT                         k       INT V U Z Q end ┴ 
+9    ;               #45 V → λ                                 V U Z Q end ┴ 
+10   ;               #36 U → λ                                 U Z Q end ┴ 
+11   ;               #58 Z → λ                         :=      Z Q end ┴ 
+12   ;               #12 Q → ; A Q                             Q end ┴ 
+13   ;               match ;                                   ; A Q end ┴ 
+14   write           #11 A → write ( S )                       A Q end ┴ 
+15   write           match write                               write ( S ) Q end ┴ 
+16   (               match (                                   ( S ) Q end ┴ 
+17   ID(x)           #29 S → ID H V U                          S ) Q end ┴ 
+18   ID(x)           match ID                          a       ID H V U ) Q end ┴ 
+19   )               #57 H → λ                                 H V U ) Q end ┴ 
+20   )               #45 V → λ                                 V U ) Q end ┴ 
+21   )               #36 U → λ                                 U ) Q end ┴ 
+22   )               match )                           w       ) Q end ┴ 
+23   ;               #12 Q → ; A Q                             Q end ┴ 
+24   ;               match ;                                   ; A Q end ┴ 
+25   ID(y)           #6 A → ID H := S Z                        A Q end ┴ 
+26   ID(y)           match ID                          a       ID H := S Z Q end ┴ 
+27   :=              #57 H → λ                                 H := S Z Q end ┴ 
+28   :=              match :=                                  := S Z Q end ┴ 
+29   ID(x)           #29 S → ID H V U                          S Z Q end ┴ 
+30   ID(x)           match ID                          a       ID H V U Z Q end ┴ 
+31   +               #57 H → λ                                 H V U Z Q end ┴ 
+32   +               #45 V → λ                                 V U Z Q end ┴ 
+33   +               #34 U → + T U                             U Z Q end ┴ 
+34   +               match +                                   + T U Z Q end ┴ 
+35   ID(z)           #38 T → ID H V                            T U Z Q end ┴ 
+36   ID(z)           match ID                          a       ID H V U Z Q end ┴ 
+37   *               #57 H → λ                                 H V U Z Q end ┴ 
+38   *               #43 V → * F V                             V U Z Q end ┴ 
+39   *               match *                                   * F V U Z Q end ┴ 
+40   INT(2)          #48 F → INT                               F V U Z Q end ┴ 
+41   INT(2)          match INT                         k       INT V U Z Q end ┴ 
+42   end             #45 V → λ                         *       V U Z Q end ┴ 
+43   end             #36 U → λ                         +       U Z Q end ┴ 
+44   end             #58 Z → λ                         :=      Z Q end ┴ 
+45   end             #13 Q → λ                                 Q end ┴ 
+46   end             match end                                 end ┴ 
+47   ┴               match ┴                                   ┴ 
+Синтаксический анализ завершён: элементов ОПС 12
+=== ОПС (12 элементов) ===
+No    Kind    Item        Pos
+0     Var     x           2:3
+1     Const   5           2:8
+2     Op      :=          2:3
+3     Var     x           3:9
+4     Op      w           3:3
+5     Var     y           4:3
+6     Var     x           4:8
+7     Var     z           4:12
+8     Const   2           4:16
+9     Op      *           4:14
+10    Op      +           4:10
+11    Op      :=          4:3
+=== Таблицы имён ===
+Переменные (3): 0=x 1=y 2=z
+Массивы (0):
+=== Выполнение ОПС ===
+Step   No    Element   Stack
+1      0     x         x 
+2      1     5         x 5 
+3      2     :=        
+4      3     x         x 
+5      4     w         
+6      5     y         y 
+7      6     x         y x 
+8      7     z         y x z 
+9      8     2         y x z 2 
+Ошибка выполнения: строка 4, символ 12: переменная 'z' не инициализирована
+=== Память ===
+x = 5
+y = <не определена>
+z = <не определена>

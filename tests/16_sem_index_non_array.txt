@@ -1,0 +1,5 @@
+array a[3];
+begin
+  x := 5;
+  a[0] := x[1]
+end

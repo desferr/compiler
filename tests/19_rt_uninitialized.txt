@@ -1,0 +1,5 @@
+begin
+  x := 5;
+  write(x);
+  y := x + z * 2
+end

@@ -1,0 +1,13 @@
+{ Тест 1: лексемы, комментарии, регистр }
+array arr_1[3];
+begin
+  { комментарий
+    на нескольких строках: @ # $ ; := }
+  _x := 1;  Begin := 2;  IF := 3; While := 4;
+  x1 := _x + Begin * IF - While;{c}
+  Value_2 := 007 + 0.5;
+  arr_1[0] := x1; arr_1[1] := Value_2;
+  write(x1);
+  write(Value_2);
+  write(arr_1[0] + arr_1[1])
+end

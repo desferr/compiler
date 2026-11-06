@@ -1,0 +1,441 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       26   BEGIN             begin
+2:3       29   WRITE             write
+2:8       9    LEFTPARENTHES     (
+2:9       2    INT               7    [int = 7]
+2:11      8    DIVISION          /
+2:13      2    INT               2    [int = 2]
+2:14      10   RIGHTPARENTHES    )
+2:15      14   SEMICOLON         ;
+3:3       29   WRITE             write
+3:8       9    LEFTPARENTHES     (
+3:9       2    INT               8    [int = 8]
+3:11      8    DIVISION          /
+3:13      2    INT               2    [int = 2]
+3:14      10   RIGHTPARENTHES    )
+3:15      14   SEMICOLON         ;
+4:3       29   WRITE             write
+4:8       9    LEFTPARENTHES     (
+4:9       3    REAL              1.5    [real = 1.5]
+4:13      5    PLUS              +
+4:15      2    INT               1    [int = 1]
+4:16      10   RIGHTPARENTHES    )
+4:17      14   SEMICOLON         ;
+5:3       29   WRITE             write
+5:8       9    LEFTPARENTHES     (
+5:9       2    INT               2    [int = 2]
+5:11      7    MULTIPLICATION    *
+5:13      3    REAL              3.0    [real = 3]
+5:16      10   RIGHTPARENTHES    )
+5:17      14   SEMICOLON         ;
+6:3       29   WRITE             write
+6:8       9    LEFTPARENTHES     (
+6:9       3    REAL              0.1    [real = 0.1]
+6:13      5    PLUS              +
+6:15      3    REAL              0.2    [real = 0.2]
+6:18      10   RIGHTPARENTHES    )
+6:19      14   SEMICOLON         ;
+7:3       29   WRITE             write
+7:8       9    LEFTPARENTHES     (
+7:9       2    INT               1    [int = 1]
+7:11      8    DIVISION          /
+7:13      2    INT               3    [int = 3]
+7:14      10   RIGHTPARENTHES    )
+7:15      14   SEMICOLON         ;
+8:3       29   WRITE             write
+8:8       9    LEFTPARENTHES     (
+8:9       2    INT               10    [int = 10]
+8:12      8    DIVISION          /
+8:14      2    INT               4    [int = 4]
+8:16      7    MULTIPLICATION    *
+8:18      2    INT               2    [int = 2]
+8:19      10   RIGHTPARENTHES    )
+8:20      14   SEMICOLON         ;
+9:3       29   WRITE             write
+9:8       9    LEFTPARENTHES     (
+9:9       3    REAL              100000.5    [real = 100000]
+9:18      7    MULTIPLICATION    *
+9:20      2    INT               2    [int = 2]
+9:21      10   RIGHTPARENTHES    )
+9:22      14   SEMICOLON         ;
+10:3      29   WRITE             write
+10:8      9    LEFTPARENTHES     (
+10:9      2    INT               123456789012    [int = 123456789012]
+10:22     7    MULTIPLICATION    *
+10:24     2    INT               10    [int = 10]
+10:26     10   RIGHTPARENTHES    )
+10:27     14   SEMICOLON         ;
+11:3      29   WRITE             write
+11:8      9    LEFTPARENTHES     (
+11:9      3    REAL              2.50    [real = 2.5]
+11:13     10   RIGHTPARENTHES    )
+11:14     14   SEMICOLON         ;
+12:3      1    ID                x
+12:5      4    ASSIGN            :=
+12:8      2    INT               5    [int = 5]
+12:9      14   SEMICOLON         ;
+12:11     1    ID                y
+12:13     4    ASSIGN            :=
+12:16     3    REAL              2.0    [real = 2]
+12:19     14   SEMICOLON         ;
+13:3      29   WRITE             write
+13:8      9    LEFTPARENTHES     (
+13:9      1    ID                x
+13:11     6    MINUS             -
+13:13     1    ID                y
+13:14     10   RIGHTPARENTHES    )
+13:15     14   SEMICOLON         ;
+14:3      29   WRITE             write
+14:8      9    LEFTPARENTHES     (
+14:9      2    INT               9223372036854775807    [int = 9223372036854775807]
+14:28     10   RIGHTPARENTHES    )
+14:29     14   SEMICOLON         ;
+15:3      29   WRITE             write
+15:8      9    LEFTPARENTHES     (
+15:9      6    MINUS             -
+15:10     2    INT               9223372036854775807    [int = 9223372036854775807]
+15:30     6    MINUS             -
+15:32     2    INT               1    [int = 1]
+15:33     10   RIGHTPARENTHES    )
+16:1      27   END               end
+17:1      31   EOF               EOF
+Лексический анализ завершён: лексем 100 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    begin           #2 P → begin A Q end                      P ┴ 
+2    begin           match begin                               begin A Q end ┴ 
+3    write           #11 A → write ( S )                       A Q end ┴ 
+4    write           match write                               write ( S ) Q end ┴ 
+5    (               match (                                   ( S ) Q end ┴ 
+6    INT(7)          #30 S → INT V U                           S ) Q end ┴ 
+7    INT(7)          match INT                         k       INT V U ) Q end ┴ 
+8    /               #44 V → / F V                             V U ) Q end ┴ 
+9    /               match /                                   / F V U ) Q end ┴ 
+10   INT(2)          #48 F → INT                               F V U ) Q end ┴ 
+11   INT(2)          match INT                         k       INT V U ) Q end ┴ 
+12   )               #45 V → λ                         /       V U ) Q end ┴ 
+13   )               #36 U → λ                                 U ) Q end ┴ 
+14   )               match )                           w       ) Q end ┴ 
+15   ;               #12 Q → ; A Q                             Q end ┴ 
+16   ;               match ;                                   ; A Q end ┴ 
+17   write           #11 A → write ( S )                       A Q end ┴ 
+18   write           match write                               write ( S ) Q end ┴ 
+19   (               match (                                   ( S ) Q end ┴ 
+20   INT(8)          #30 S → INT V U                           S ) Q end ┴ 
+21   INT(8)          match INT                         k       INT V U ) Q end ┴ 
+22   /               #44 V → / F V                             V U ) Q end ┴ 
+23   /               match /                                   / F V U ) Q end ┴ 
+24   INT(2)          #48 F → INT                               F V U ) Q end ┴ 
+25   INT(2)          match INT                         k       INT V U ) Q end ┴ 
+26   )               #45 V → λ                         /       V U ) Q end ┴ 
+27   )               #36 U → λ                                 U ) Q end ┴ 
+28   )               match )                           w       ) Q end ┴ 
+29   ;               #12 Q → ; A Q                             Q end ┴ 
+30   ;               match ;                                   ; A Q end ┴ 
+31   write           #11 A → write ( S )                       A Q end ┴ 
+32   write           match write                               write ( S ) Q end ┴ 
+33   (               match (                                   ( S ) Q end ┴ 
+34   REAL(1.5)       #31 S → REAL V U                          S ) Q end ┴ 
+35   REAL(1.5)       match REAL                        k       REAL V U ) Q end ┴ 
+36   +               #45 V → λ                                 V U ) Q end ┴ 
+37   +               #34 U → + T U                             U ) Q end ┴ 
+38   +               match +                                   + T U ) Q end ┴ 
+39   INT(1)          #39 T → INT V                             T U ) Q end ┴ 
+40   INT(1)          match INT                         k       INT V U ) Q end ┴ 
+41   )               #45 V → λ                                 V U ) Q end ┴ 
+42   )               #36 U → λ                         +       U ) Q end ┴ 
+43   )               match )                           w       ) Q end ┴ 
+44   ;               #12 Q → ; A Q                             Q end ┴ 
+45   ;               match ;                                   ; A Q end ┴ 
+46   write           #11 A → write ( S )                       A Q end ┴ 
+47   write           match write                               write ( S ) Q end ┴ 
+48   (               match (                                   ( S ) Q end ┴ 
+49   INT(2)          #30 S → INT V U                           S ) Q end ┴ 
+50   INT(2)          match INT                         k       INT V U ) Q end ┴ 
+51   *               #43 V → * F V                             V U ) Q end ┴ 
+52   *               match *                                   * F V U ) Q end ┴ 
+53   REAL(3.0)       #49 F → REAL                              F V U ) Q end ┴ 
+54   REAL(3.0)       match REAL                        k       REAL V U ) Q end ┴ 
+55   )               #45 V → λ                         *       V U ) Q end ┴ 
+56   )               #36 U → λ                                 U ) Q end ┴ 
+57   )               match )                           w       ) Q end ┴ 
+58   ;               #12 Q → ; A Q                             Q end ┴ 
+59   ;               match ;                                   ; A Q end ┴ 
+60   write           #11 A → write ( S )                       A Q end ┴ 
+61   write           match write                               write ( S ) Q end ┴ 
+62   (               match (                                   ( S ) Q end ┴ 
+63   REAL(0.1)       #31 S → REAL V U                          S ) Q end ┴ 
+64   REAL(0.1)       match REAL                        k       REAL V U ) Q end ┴ 
+65   +               #45 V → λ                                 V U ) Q end ┴ 
+66   +               #34 U → + T U                             U ) Q end ┴ 
+67   +               match +                                   + T U ) Q end ┴ 
+68   REAL(0.2)       #40 T → REAL V                            T U ) Q end ┴ 
+69   REAL(0.2)       match REAL                        k       REAL V U ) Q end ┴ 
+70   )               #45 V → λ                                 V U ) Q end ┴ 
+71   )               #36 U → λ                         +       U ) Q end ┴ 
+72   )               match )                           w       ) Q end ┴ 
+73   ;               #12 Q → ; A Q                             Q end ┴ 
+74   ;               match ;                                   ; A Q end ┴ 
+75   write           #11 A → write ( S )                       A Q end ┴ 
+76   write           match write                               write ( S ) Q end ┴ 
+77   (               match (                                   ( S ) Q end ┴ 
+78   INT(1)          #30 S → INT V U                           S ) Q end ┴ 
+79   INT(1)          match INT                         k       INT V U ) Q end ┴ 
+80   /               #44 V → / F V                             V U ) Q end ┴ 
+81   /               match /                                   / F V U ) Q end ┴ 
+82   INT(3)          #48 F → INT                               F V U ) Q end ┴ 
+83   INT(3)          match INT                         k       INT V U ) Q end ┴ 
+84   )               #45 V → λ                         /       V U ) Q end ┴ 
+85   )               #36 U → λ                                 U ) Q end ┴ 
+86   )               match )                           w       ) Q end ┴ 
+87   ;               #12 Q → ; A Q                             Q end ┴ 
+88   ;               match ;                                   ; A Q end ┴ 
+89   write           #11 A → write ( S )                       A Q end ┴ 
+90   write           match write                               write ( S ) Q end ┴ 
+91   (               match (                                   ( S ) Q end ┴ 
+92   INT(10)         #30 S → INT V U                           S ) Q end ┴ 
+93   INT(10)         match INT                         k       INT V U ) Q end ┴ 
+94   /               #44 V → / F V                             V U ) Q end ┴ 
+95   /               match /                                   / F V U ) Q end ┴ 
+96   INT(4)          #48 F → INT                               F V U ) Q end ┴ 
+97   INT(4)          match INT                         k       INT V U ) Q end ┴ 
+98   *               #43 V → * F V                     /       V U ) Q end ┴ 
+99   *               match *                                   * F V U ) Q end ┴ 
+100  INT(2)          #48 F → INT                               F V U ) Q end ┴ 
+101  INT(2)          match INT                         k       INT V U ) Q end ┴ 
+102  )               #45 V → λ                         *       V U ) Q end ┴ 
+103  )               #36 U → λ                                 U ) Q end ┴ 
+104  )               match )                           w       ) Q end ┴ 
+105  ;               #12 Q → ; A Q                             Q end ┴ 
+106  ;               match ;                                   ; A Q end ┴ 
+107  write           #11 A → write ( S )                       A Q end ┴ 
+108  write           match write                               write ( S ) Q end ┴ 
+109  (               match (                                   ( S ) Q end ┴ 
+110  REAL(100000.5)  #31 S → REAL V U                          S ) Q end ┴ 
+111  REAL(100000.5)  match REAL                        k       REAL V U ) Q end ┴ 
+112  *               #43 V → * F V                             V U ) Q end ┴ 
+113  *               match *                                   * F V U ) Q end ┴ 
+114  INT(2)          #48 F → INT                               F V U ) Q end ┴ 
+115  INT(2)          match INT                         k       INT V U ) Q end ┴ 
+116  )               #45 V → λ                         *       V U ) Q end ┴ 
+117  )               #36 U → λ                                 U ) Q end ┴ 
+118  )               match )                           w       ) Q end ┴ 
+119  ;               #12 Q → ; A Q                             Q end ┴ 
+120  ;               match ;                                   ; A Q end ┴ 
+121  write           #11 A → write ( S )                       A Q end ┴ 
+122  write           match write                               write ( S ) Q end ┴ 
+123  (               match (                                   ( S ) Q end ┴ 
+124  INT(123456789012)#30 S → INT V U                           S ) Q end ┴ 
+125  INT(123456789012)match INT                         k       INT V U ) Q end ┴ 
+126  *               #43 V → * F V                             V U ) Q end ┴ 
+127  *               match *                                   * F V U ) Q end ┴ 
+128  INT(10)         #48 F → INT                               F V U ) Q end ┴ 
+129  INT(10)         match INT                         k       INT V U ) Q end ┴ 
+130  )               #45 V → λ                         *       V U ) Q end ┴ 
+131  )               #36 U → λ                                 U ) Q end ┴ 
+132  )               match )                           w       ) Q end ┴ 
+133  ;               #12 Q → ; A Q                             Q end ┴ 
+134  ;               match ;                                   ; A Q end ┴ 
+135  write           #11 A → write ( S )                       A Q end ┴ 
+136  write           match write                               write ( S ) Q end ┴ 
+137  (               match (                                   ( S ) Q end ┴ 
+138  REAL(2.50)      #31 S → REAL V U                          S ) Q end ┴ 
+139  REAL(2.50)      match REAL                        k       REAL V U ) Q end ┴ 
+140  )               #45 V → λ                                 V U ) Q end ┴ 
+141  )               #36 U → λ                                 U ) Q end ┴ 
+142  )               match )                           w       ) Q end ┴ 
+143  ;               #12 Q → ; A Q                             Q end ┴ 
+144  ;               match ;                                   ; A Q end ┴ 
+145  ID(x)           #6 A → ID H := S Z                        A Q end ┴ 
+146  ID(x)           match ID                          a       ID H := S Z Q end ┴ 
+147  :=              #57 H → λ                                 H := S Z Q end ┴ 
+148  :=              match :=                                  := S Z Q end ┴ 
+149  INT(5)          #30 S → INT V U                           S Z Q end ┴ 
+150  INT(5)          match INT                         k       INT V U Z Q end ┴ 
+151  ;               #45 V → λ                                 V U Z Q end ┴ 
+152  ;               #36 U → λ                                 U Z Q end ┴ 
+153  ;               #58 Z → λ                         :=      Z Q end ┴ 
+154  ;               #12 Q → ; A Q                             Q end ┴ 
+155  ;               match ;                                   ; A Q end ┴ 
+156  ID(y)           #6 A → ID H := S Z                        A Q end ┴ 
+157  ID(y)           match ID                          a       ID H := S Z Q end ┴ 
+158  :=              #57 H → λ                                 H := S Z Q end ┴ 
+159  :=              match :=                                  := S Z Q end ┴ 
+160  REAL(2.0)       #31 S → REAL V U                          S Z Q end ┴ 
+161  REAL(2.0)       match REAL                        k       REAL V U Z Q end ┴ 
+162  ;               #45 V → λ                                 V U Z Q end ┴ 
+163  ;               #36 U → λ                                 U Z Q end ┴ 
+164  ;               #58 Z → λ                         :=      Z Q end ┴ 
+165  ;               #12 Q → ; A Q                             Q end ┴ 
+166  ;               match ;                                   ; A Q end ┴ 
+167  write           #11 A → write ( S )                       A Q end ┴ 
+168  write           match write                               write ( S ) Q end ┴ 
+169  (               match (                                   ( S ) Q end ┴ 
+170  ID(x)           #29 S → ID H V U                          S ) Q end ┴ 
+171  ID(x)           match ID                          a       ID H V U ) Q end ┴ 
+172  -               #57 H → λ                                 H V U ) Q end ┴ 
+173  -               #45 V → λ                                 V U ) Q end ┴ 
+174  -               #35 U → - T U                             U ) Q end ┴ 
+175  -               match -                                   - T U ) Q end ┴ 
+176  ID(y)           #38 T → ID H V                            T U ) Q end ┴ 
+177  ID(y)           match ID                          a       ID H V U ) Q end ┴ 
+178  )               #57 H → λ                                 H V U ) Q end ┴ 
+179  )               #45 V → λ                                 V U ) Q end ┴ 
+180  )               #36 U → λ                         -       U ) Q end ┴ 
+181  )               match )                           w       ) Q end ┴ 
+182  ;               #12 Q → ; A Q                             Q end ┴ 
+183  ;               match ;                                   ; A Q end ┴ 
+184  write           #11 A → write ( S )                       A Q end ┴ 
+185  write           match write                               write ( S ) Q end ┴ 
+186  (               match (                                   ( S ) Q end ┴ 
+187  INT(9223372036854775807)#30 S → INT V U                           S ) Q end ┴ 
+188  INT(9223372036854775807)match INT                         k       INT V U ) Q end ┴ 
+189  )               #45 V → λ                                 V U ) Q end ┴ 
+190  )               #36 U → λ                                 U ) Q end ┴ 
+191  )               match )                           w       ) Q end ┴ 
+192  ;               #12 Q → ; A Q                             Q end ┴ 
+193  ;               match ;                                   ; A Q end ┴ 
+194  write           #11 A → write ( S )                       A Q end ┴ 
+195  write           match write                               write ( S ) Q end ┴ 
+196  (               match (                                   ( S ) Q end ┴ 
+197  -               #33 S → - G V U                           S ) Q end ┴ 
+198  -               match -                                   - G V U ) Q end ┴ 
+199  INT(9223372036854775807)#54 G → INT                               G V U ) Q end ┴ 
+200  INT(9223372036854775807)match INT                         k       INT V U ) Q end ┴ 
+201  -               #45 V → λ                         -'      V U ) Q end ┴ 
+202  -               #35 U → - T U                             U ) Q end ┴ 
+203  -               match -                                   - T U ) Q end ┴ 
+204  INT(1)          #39 T → INT V                             T U ) Q end ┴ 
+205  INT(1)          match INT                         k       INT V U ) Q end ┴ 
+206  )               #45 V → λ                                 V U ) Q end ┴ 
+207  )               #36 U → λ                         -       U ) Q end ┴ 
+208  )               match )                           w       ) Q end ┴ 
+209  end             #13 Q → λ                                 Q end ┴ 
+210  end             match end                                 end ┴ 
+211  ┴               match ┴                                   ┴ 
+Синтаксический анализ завершён: элементов ОПС 57
+=== ОПС (57 элементов) ===
+No    Kind    Item        Pos
+0     Const   7           2:9
+1     Const   2           2:13
+2     Op      /           2:11
+3     Op      w           2:3
+4     Const   8           3:9
+5     Const   2           3:13
+6     Op      /           3:11
+7     Op      w           3:3
+8     Const   1.5         4:9
+9     Const   1           4:15
+10    Op      +           4:13
+11    Op      w           4:3
+12    Const   2           5:9
+13    Const   3           5:13
+14    Op      *           5:11
+15    Op      w           5:3
+16    Const   0.1         6:9
+17    Const   0.2         6:15
+18    Op      +           6:13
+19    Op      w           6:3
+20    Const   1           7:9
+21    Const   3           7:13
+22    Op      /           7:11
+23    Op      w           7:3
+24    Const   10          8:9
+25    Const   4           8:14
+26    Op      /           8:12
+27    Const   2           8:18
+28    Op      *           8:16
+29    Op      w           8:3
+30    Const   100000      9:9
+31    Const   2           9:20
+32    Op      *           9:18
+33    Op      w           9:3
+34    Const   12345678901210:9
+35    Const   10          10:24
+36    Op      *           10:22
+37    Op      w           10:3
+38    Const   2.5         11:9
+39    Op      w           11:3
+40    Var     x           12:3
+41    Const   5           12:8
+42    Op      :=          12:3
+43    Var     y           12:11
+44    Const   2           12:16
+45    Op      :=          12:11
+46    Var     x           13:9
+47    Var     y           13:13
+48    Op      -           13:11
+49    Op      w           13:3
+50    Const   922337203685477580714:9
+51    Op      w           14:3
+52    Const   922337203685477580715:10
+53    Op      -'          15:9
+54    Const   1           15:32
+55    Op      -           15:30
+56    Op      w           15:3
+=== Таблицы имён ===
+Переменные (2): 0=x 1=y
+Массивы (0):
+=== Выполнение ОПС ===
+Step   No    Element   Stack
+1      0     7         7 
+2      1     2         7 2 
+3      2     /         3.5 
+4      3     w         
+5      4     8         8 
+6      5     2         8 2 
+7      6     /         4.0 
+8      7     w         
+9      8     1.5       1.5 
+10     9     1         1.5 1 
+11     10    +         2.5 
+12     11    w         
+13     12    2         2 
+14     13    3.0       2 3.0 
+15     14    *         6.0 
+16     15    w         
+17     16    0.1       0.1 
+18     17    0.2       0.1 0.2 
+19     18    +         0.3 
+20     19    w         
+21     20    1         1 
+22     21    3         1 3 
+23     22    /         0.3333333333 
+24     23    w         
+25     24    10        10 
+26     25    4         10 4 
+27     26    /         2.5 
+28     27    2         2.5 2 
+29     28    *         5.0 
+30     29    w         
+31     30    100000.5  100000.5 
+32     31    2         100000.5 2 
+33     32    *         200001.0 
+34     33    w         
+35     34    123456789012123456789012 
+36     35    10        123456789012 10 
+37     36    *         1234567890120 
+38     37    w         
+39     38    2.5       2.5 
+40     39    w         
+41     40    x         x 
+42     41    5         x 5 
+43     42    :=        
+44     43    y         y 
+45     44    2.0       y 2.0 
+46     45    :=        
+47     46    x         x 
+48     47    y         x y 
+49     48    -         3.0 
+50     49    w         
+51     50    92233720368547758079223372036854775807 
+52     51    w         
+53     52    92233720368547758079223372036854775807 
+54     53    -'        -9223372036854775807 
+55     54    1         -9223372036854775807 1 
+56     55    -         -9223372036854775808 
+57     56    w         
+=== Память ===
+x = 5
+y = 2.0

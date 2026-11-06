@@ -1,0 +1,388 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+2:1       30   ARRAY             array
+2:7       1    ID                arr_1
+2:12      11   LEFTBRACKET       [
+2:13      2    INT               3    [int = 3]
+2:14      12   RIGHTBRACKET      ]
+2:15      14   SEMICOLON         ;
+3:1       26   BEGIN             begin
+6:3       1    ID                _x
+6:6       4    ASSIGN            :=
+6:9       2    INT               1    [int = 1]
+6:10      14   SEMICOLON         ;
+6:13      1    ID                Begin
+6:19      4    ASSIGN            :=
+6:22      2    INT               2    [int = 2]
+6:23      14   SEMICOLON         ;
+6:26      1    ID                IF
+6:29      4    ASSIGN            :=
+6:32      2    INT               3    [int = 3]
+6:33      14   SEMICOLON         ;
+6:35      1    ID                While
+6:41      4    ASSIGN            :=
+6:44      2    INT               4    [int = 4]
+6:45      14   SEMICOLON         ;
+7:3       1    ID                x1
+7:6       4    ASSIGN            :=
+7:9       1    ID                _x
+7:12      5    PLUS              +
+7:14      1    ID                Begin
+7:20      7    MULTIPLICATION    *
+7:22      1    ID                IF
+7:25      6    MINUS             -
+7:27      1    ID                While
+7:32      14   SEMICOLON         ;
+8:3       1    ID                Value_2
+8:11      4    ASSIGN            :=
+8:14      2    INT               007    [int = 7]
+8:18      5    PLUS              +
+8:20      3    REAL              0.5    [real = 0.5]
+8:23      14   SEMICOLON         ;
+9:3       1    ID                arr_1
+9:8       11   LEFTBRACKET       [
+9:9       2    INT               0    [int = 0]
+9:10      12   RIGHTBRACKET      ]
+9:12      4    ASSIGN            :=
+9:15      1    ID                x1
+9:17      14   SEMICOLON         ;
+9:19      1    ID                arr_1
+9:24      11   LEFTBRACKET       [
+9:25      2    INT               1    [int = 1]
+9:26      12   RIGHTBRACKET      ]
+9:28      4    ASSIGN            :=
+9:31      1    ID                Value_2
+9:38      14   SEMICOLON         ;
+10:3      29   WRITE             write
+10:8      9    LEFTPARENTHES     (
+10:9      1    ID                x1
+10:11     10   RIGHTPARENTHES    )
+10:12     14   SEMICOLON         ;
+11:3      29   WRITE             write
+11:8      9    LEFTPARENTHES     (
+11:9      1    ID                Value_2
+11:16     10   RIGHTPARENTHES    )
+11:17     14   SEMICOLON         ;
+12:3      29   WRITE             write
+12:8      9    LEFTPARENTHES     (
+12:9      1    ID                arr_1
+12:14     11   LEFTBRACKET       [
+12:15     2    INT               0    [int = 0]
+12:16     12   RIGHTBRACKET      ]
+12:18     5    PLUS              +
+12:20     1    ID                arr_1
+12:25     11   LEFTBRACKET       [
+12:26     2    INT               1    [int = 1]
+12:27     12   RIGHTBRACKET      ]
+12:28     10   RIGHTPARENTHES    )
+13:1      27   END               end
+14:1      31   EOF               EOF
+Лексический анализ завершён: лексем 77 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    array           #1 P → array R P                          P ┴ 
+2    array           match array                               array R P ┴ 
+3    ID(arr_1)       #3 R → ID [ INT ] M                       R P ┴ 
+4    ID(arr_1)       match ID                          6       ID [ INT ] M P ┴ 
+5    [               match [                                   [ INT ] M P ┴ 
+6    INT(3)          match INT                         k       INT ] M P ┴ 
+7    ]               match ]                           m1      ] M P ┴ 
+8    ;               #5 M → ;                                  M P ┴ 
+9    ;               match ;                                   ; P ┴ 
+10   begin           #2 P → begin A Q end                      P ┴ 
+11   begin           match begin                               begin A Q end ┴ 
+12   ID(_x)          #6 A → ID H := S Z                        A Q end ┴ 
+13   ID(_x)          match ID                          a       ID H := S Z Q end ┴ 
+14   :=              #57 H → λ                                 H := S Z Q end ┴ 
+15   :=              match :=                                  := S Z Q end ┴ 
+16   INT(1)          #30 S → INT V U                           S Z Q end ┴ 
+17   INT(1)          match INT                         k       INT V U Z Q end ┴ 
+18   ;               #45 V → λ                                 V U Z Q end ┴ 
+19   ;               #36 U → λ                                 U Z Q end ┴ 
+20   ;               #58 Z → λ                         :=      Z Q end ┴ 
+21   ;               #12 Q → ; A Q                             Q end ┴ 
+22   ;               match ;                                   ; A Q end ┴ 
+23   ID(Begin)       #6 A → ID H := S Z                        A Q end ┴ 
+24   ID(Begin)       match ID                          a       ID H := S Z Q end ┴ 
+25   :=              #57 H → λ                                 H := S Z Q end ┴ 
+26   :=              match :=                                  := S Z Q end ┴ 
+27   INT(2)          #30 S → INT V U                           S Z Q end ┴ 
+28   INT(2)          match INT                         k       INT V U Z Q end ┴ 
+29   ;               #45 V → λ                                 V U Z Q end ┴ 
+30   ;               #36 U → λ                                 U Z Q end ┴ 
+31   ;               #58 Z → λ                         :=      Z Q end ┴ 
+32   ;               #12 Q → ; A Q                             Q end ┴ 
+33   ;               match ;                                   ; A Q end ┴ 
+34   ID(IF)          #6 A → ID H := S Z                        A Q end ┴ 
+35   ID(IF)          match ID                          a       ID H := S Z Q end ┴ 
+36   :=              #57 H → λ                                 H := S Z Q end ┴ 
+37   :=              match :=                                  := S Z Q end ┴ 
+38   INT(3)          #30 S → INT V U                           S Z Q end ┴ 
+39   INT(3)          match INT                         k       INT V U Z Q end ┴ 
+40   ;               #45 V → λ                                 V U Z Q end ┴ 
+41   ;               #36 U → λ                                 U Z Q end ┴ 
+42   ;               #58 Z → λ                         :=      Z Q end ┴ 
+43   ;               #12 Q → ; A Q                             Q end ┴ 
+44   ;               match ;                                   ; A Q end ┴ 
+45   ID(While)       #6 A → ID H := S Z                        A Q end ┴ 
+46   ID(While)       match ID                          a       ID H := S Z Q end ┴ 
+47   :=              #57 H → λ                                 H := S Z Q end ┴ 
+48   :=              match :=                                  := S Z Q end ┴ 
+49   INT(4)          #30 S → INT V U                           S Z Q end ┴ 
+50   INT(4)          match INT                         k       INT V U Z Q end ┴ 
+51   ;               #45 V → λ                                 V U Z Q end ┴ 
+52   ;               #36 U → λ                                 U Z Q end ┴ 
+53   ;               #58 Z → λ                         :=      Z Q end ┴ 
+54   ;               #12 Q → ; A Q                             Q end ┴ 
+55   ;               match ;                                   ; A Q end ┴ 
+56   ID(x1)          #6 A → ID H := S Z                        A Q end ┴ 
+57   ID(x1)          match ID                          a       ID H := S Z Q end ┴ 
+58   :=              #57 H → λ                                 H := S Z Q end ┴ 
+59   :=              match :=                                  := S Z Q end ┴ 
+60   ID(_x)          #29 S → ID H V U                          S Z Q end ┴ 
+61   ID(_x)          match ID                          a       ID H V U Z Q end ┴ 
+62   +               #57 H → λ                                 H V U Z Q end ┴ 
+63   +               #45 V → λ                                 V U Z Q end ┴ 
+64   +               #34 U → + T U                             U Z Q end ┴ 
+65   +               match +                                   + T U Z Q end ┴ 
+66   ID(Begin)       #38 T → ID H V                            T U Z Q end ┴ 
+67   ID(Begin)       match ID                          a       ID H V U Z Q end ┴ 
+68   *               #57 H → λ                                 H V U Z Q end ┴ 
+69   *               #43 V → * F V                             V U Z Q end ┴ 
+70   *               match *                                   * F V U Z Q end ┴ 
+71   ID(IF)          #47 F → ID H                              F V U Z Q end ┴ 
+72   ID(IF)          match ID                          a       ID H V U Z Q end ┴ 
+73   -               #57 H → λ                                 H V U Z Q end ┴ 
+74   -               #45 V → λ                         *       V U Z Q end ┴ 
+75   -               #35 U → - T U                     +       U Z Q end ┴ 
+76   -               match -                                   - T U Z Q end ┴ 
+77   ID(While)       #38 T → ID H V                            T U Z Q end ┴ 
+78   ID(While)       match ID                          a       ID H V U Z Q end ┴ 
+79   ;               #57 H → λ                                 H V U Z Q end ┴ 
+80   ;               #45 V → λ                                 V U Z Q end ┴ 
+81   ;               #36 U → λ                         -       U Z Q end ┴ 
+82   ;               #58 Z → λ                         :=      Z Q end ┴ 
+83   ;               #12 Q → ; A Q                             Q end ┴ 
+84   ;               match ;                                   ; A Q end ┴ 
+85   ID(Value_2)     #6 A → ID H := S Z                        A Q end ┴ 
+86   ID(Value_2)     match ID                          a       ID H := S Z Q end ┴ 
+87   :=              #57 H → λ                                 H := S Z Q end ┴ 
+88   :=              match :=                                  := S Z Q end ┴ 
+89   INT(007)        #30 S → INT V U                           S Z Q end ┴ 
+90   INT(007)        match INT                         k       INT V U Z Q end ┴ 
+91   +               #45 V → λ                                 V U Z Q end ┴ 
+92   +               #34 U → + T U                             U Z Q end ┴ 
+93   +               match +                                   + T U Z Q end ┴ 
+94   REAL(0.5)       #40 T → REAL V                            T U Z Q end ┴ 
+95   REAL(0.5)       match REAL                        k       REAL V U Z Q end ┴ 
+96   ;               #45 V → λ                                 V U Z Q end ┴ 
+97   ;               #36 U → λ                         +       U Z Q end ┴ 
+98   ;               #58 Z → λ                         :=      Z Q end ┴ 
+99   ;               #12 Q → ; A Q                             Q end ┴ 
+100  ;               match ;                                   ; A Q end ┴ 
+101  ID(arr_1)       #6 A → ID H := S Z                        A Q end ┴ 
+102  ID(arr_1)       match ID                          a       ID H := S Z Q end ┴ 
+103  [               #56 H → [ S ]                             H := S Z Q end ┴ 
+104  [               match [                           7       [ S ] := S Z Q end ┴ 
+105  INT(0)          #30 S → INT V U                           S ] := S Z Q end ┴ 
+106  INT(0)          match INT                         k       INT V U ] := S Z Q end ┴ 
+107  ]               #45 V → λ                                 V U ] := S Z Q end ┴ 
+108  ]               #36 U → λ                                 U ] := S Z Q end ┴ 
+109  ]               match ]                           i       ] := S Z Q end ┴ 
+110  :=              match :=                                  := S Z Q end ┴ 
+111  ID(x1)          #29 S → ID H V U                          S Z Q end ┴ 
+112  ID(x1)          match ID                          a       ID H V U Z Q end ┴ 
+113  ;               #57 H → λ                                 H V U Z Q end ┴ 
+114  ;               #45 V → λ                                 V U Z Q end ┴ 
+115  ;               #36 U → λ                                 U Z Q end ┴ 
+116  ;               #58 Z → λ                         :=      Z Q end ┴ 
+117  ;               #12 Q → ; A Q                             Q end ┴ 
+118  ;               match ;                                   ; A Q end ┴ 
+119  ID(arr_1)       #6 A → ID H := S Z                        A Q end ┴ 
+120  ID(arr_1)       match ID                          a       ID H := S Z Q end ┴ 
+121  [               #56 H → [ S ]                             H := S Z Q end ┴ 
+122  [               match [                           7       [ S ] := S Z Q end ┴ 
+123  INT(1)          #30 S → INT V U                           S ] := S Z Q end ┴ 
+124  INT(1)          match INT                         k       INT V U ] := S Z Q end ┴ 
+125  ]               #45 V → λ                                 V U ] := S Z Q end ┴ 
+126  ]               #36 U → λ                                 U ] := S Z Q end ┴ 
+127  ]               match ]                           i       ] := S Z Q end ┴ 
+128  :=              match :=                                  := S Z Q end ┴ 
+129  ID(Value_2)     #29 S → ID H V U                          S Z Q end ┴ 
+130  ID(Value_2)     match ID                          a       ID H V U Z Q end ┴ 
+131  ;               #57 H → λ                                 H V U Z Q end ┴ 
+132  ;               #45 V → λ                                 V U Z Q end ┴ 
+133  ;               #36 U → λ                                 U Z Q end ┴ 
+134  ;               #58 Z → λ                         :=      Z Q end ┴ 
+135  ;               #12 Q → ; A Q                             Q end ┴ 
+136  ;               match ;                                   ; A Q end ┴ 
+137  write           #11 A → write ( S )                       A Q end ┴ 
+138  write           match write                               write ( S ) Q end ┴ 
+139  (               match (                                   ( S ) Q end ┴ 
+140  ID(x1)          #29 S → ID H V U                          S ) Q end ┴ 
+141  ID(x1)          match ID                          a       ID H V U ) Q end ┴ 
+142  )               #57 H → λ                                 H V U ) Q end ┴ 
+143  )               #45 V → λ                                 V U ) Q end ┴ 
+144  )               #36 U → λ                                 U ) Q end ┴ 
+145  )               match )                           w       ) Q end ┴ 
+146  ;               #12 Q → ; A Q                             Q end ┴ 
+147  ;               match ;                                   ; A Q end ┴ 
+148  write           #11 A → write ( S )                       A Q end ┴ 
+149  write           match write                               write ( S ) Q end ┴ 
+150  (               match (                                   ( S ) Q end ┴ 
+151  ID(Value_2)     #29 S → ID H V U                          S ) Q end ┴ 
+152  ID(Value_2)     match ID                          a       ID H V U ) Q end ┴ 
+153  )               #57 H → λ                                 H V U ) Q end ┴ 
+154  )               #45 V → λ                                 V U ) Q end ┴ 
+155  )               #36 U → λ                                 U ) Q end ┴ 
+156  )               match )                           w       ) Q end ┴ 
+157  ;               #12 Q → ; A Q                             Q end ┴ 
+158  ;               match ;                                   ; A Q end ┴ 
+159  write           #11 A → write ( S )                       A Q end ┴ 
+160  write           match write                               write ( S ) Q end ┴ 
+161  (               match (                                   ( S ) Q end ┴ 
+162  ID(arr_1)       #29 S → ID H V U                          S ) Q end ┴ 
+163  ID(arr_1)       match ID                          a       ID H V U ) Q end ┴ 
+164  [               #56 H → [ S ]                             H V U ) Q end ┴ 
+165  [               match [                           7       [ S ] V U ) Q end ┴ 
+166  INT(0)          #30 S → INT V U                           S ] V U ) Q end ┴ 
+167  INT(0)          match INT                         k       INT V U ] V U ) Q end ┴ 
+168  ]               #45 V → λ                                 V U ] V U ) Q end ┴ 
+169  ]               #36 U → λ                                 U ] V U ) Q end ┴ 
+170  ]               match ]                           i       ] V U ) Q end ┴ 
+171  +               #45 V → λ                                 V U ) Q end ┴ 
+172  +               #34 U → + T U                             U ) Q end ┴ 
+173  +               match +                                   + T U ) Q end ┴ 
+174  ID(arr_1)       #38 T → ID H V                            T U ) Q end ┴ 
+175  ID(arr_1)       match ID                          a       ID H V U ) Q end ┴ 
+176  [               #56 H → [ S ]                             H V U ) Q end ┴ 
+177  [               match [                           7       [ S ] V U ) Q end ┴ 
+178  INT(1)          #30 S → INT V U                           S ] V U ) Q end ┴ 
+179  INT(1)          match INT                         k       INT V U ] V U ) Q end ┴ 
+180  ]               #45 V → λ                                 V U ] V U ) Q end ┴ 
+181  ]               #36 U → λ                                 U ] V U ) Q end ┴ 
+182  ]               match ]                           i       ] V U ) Q end ┴ 
+183  )               #45 V → λ                                 V U ) Q end ┴ 
+184  )               #36 U → λ                         +       U ) Q end ┴ 
+185  )               match )                           w       ) Q end ┴ 
+186  end             #13 Q → λ                                 Q end ┴ 
+187  end             match end                                 end ┴ 
+188  ┴               match ┴                                   ┴ 
+Синтаксический анализ завершён: элементов ОПС 51
+=== ОПС (51 элементов) ===
+No    Kind    Item        Pos
+0     Arr     arr_1       2:7
+1     Const   3           2:13
+2     Op      m1          2:7
+3     Var     _x          6:3
+4     Const   1           6:9
+5     Op      :=          6:3
+6     Var     Begin       6:13
+7     Const   2           6:22
+8     Op      :=          6:13
+9     Var     IF          6:26
+10    Const   3           6:32
+11    Op      :=          6:26
+12    Var     While       6:35
+13    Const   4           6:44
+14    Op      :=          6:35
+15    Var     x1          7:3
+16    Var     _x          7:9
+17    Var     Begin       7:14
+18    Var     IF          7:22
+19    Op      *           7:20
+20    Op      +           7:12
+21    Var     While       7:27
+22    Op      -           7:25
+23    Op      :=          7:3
+24    Var     Value_2     8:3
+25    Const   7           8:14
+26    Const   0.5         8:20
+27    Op      +           8:18
+28    Op      :=          8:3
+29    Arr     arr_1       9:3
+30    Const   0           9:9
+31    Op      i           9:8
+32    Var     x1          9:15
+33    Op      :=          9:3
+34    Arr     arr_1       9:19
+35    Const   1           9:25
+36    Op      i           9:24
+37    Var     Value_2     9:31
+38    Op      :=          9:19
+39    Var     x1          10:9
+40    Op      w           10:3
+41    Var     Value_2     11:9
+42    Op      w           11:3
+43    Arr     arr_1       12:9
+44    Const   0           12:15
+45    Op      i           12:14
+46    Arr     arr_1       12:20
+47    Const   1           12:26
+48    Op      i           12:25
+49    Op      +           12:18
+50    Op      w           12:3
+=== Таблицы имён ===
+Переменные (6): 0=_x 1=Begin 2=IF 3=While 4=x1 5=Value_2
+Массивы (1): 0=arr_1
+=== Выполнение ОПС ===
+Step   No    Element   Stack
+1      0     arr_1     arr_1 
+2      1     3         arr_1 3 
+3      2     m1        
+4      3     _x        _x 
+5      4     1         _x 1 
+6      5     :=        
+7      6     Begin     Begin 
+8      7     2         Begin 2 
+9      8     :=        
+10     9     IF        IF 
+11     10    3         IF 3 
+12     11    :=        
+13     12    While     While 
+14     13    4         While 4 
+15     14    :=        
+16     15    x1        x1 
+17     16    _x        x1 _x 
+18     17    Begin     x1 _x Begin 
+19     18    IF        x1 _x Begin IF 
+20     19    *         x1 _x 6 
+21     20    +         x1 7 
+22     21    While     x1 7 While 
+23     22    -         x1 3 
+24     23    :=        
+25     24    Value_2   Value_2 
+26     25    7         Value_2 7 
+27     26    0.5       Value_2 7 0.5 
+28     27    +         Value_2 7.5 
+29     28    :=        
+30     29    arr_1     arr_1 
+31     30    0         arr_1 0 
+32     31    i         arr_1[0] 
+33     32    x1        arr_1[0] x1 
+34     33    :=        
+35     34    arr_1     arr_1 
+36     35    1         arr_1 1 
+37     36    i         arr_1[1] 
+38     37    Value_2   arr_1[1] Value_2 
+39     38    :=        
+40     39    x1        x1 
+41     40    w         
+42     41    Value_2   Value_2 
+43     42    w         
+44     43    arr_1     arr_1 
+45     44    0         arr_1 0 
+46     45    i         arr_1[0] 
+47     46    arr_1     arr_1[0] arr_1 
+48     47    1         arr_1[0] arr_1 1 
+49     48    i         arr_1[0] arr_1[1] 
+50     49    +         10.5 
+51     50    w         
+=== Память ===
+_x = 1
+Begin = 2
+IF = 3
+While = 4
+x1 = 3
+Value_2 = 7.5
+arr_1[3]: [0]=3 [1]=7.5

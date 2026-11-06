@@ -1,0 +1,9 @@
+begin
+  read(n);
+  f := 1; i := 2;
+  while i <= n do begin
+    f := f * i;
+    write(f);
+    i := i + 1
+  end
+end

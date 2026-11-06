@@ -1,0 +1,15 @@
+begin
+  n := 2;
+  while n <= 30 do begin
+    isPrime := 1;
+    d := 2;
+    while d * d <= n do begin
+      m := d;
+      while m < n do m := m + d;
+      if m = n then isPrime := 0;
+      d := d + 1
+    end;
+    if isPrime = 1 then write(n);
+    n := n + 1
+  end
+end

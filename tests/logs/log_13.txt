@@ -1,0 +1,46 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       26   BEGIN             begin
+2:3       28   READ              read
+2:7       9    LEFTPARENTHES     (
+2:8       1    ID                x
+2:9       10   RIGHTPARENTHES    )
+2:10      14   SEMICOLON         ;
+3:3       21   IF                if
+3:6       1    ID                x
+3:8       16   GREATERTHAN       >
+3:10      2    INT               0    [int = 0]
+3:12      29   WRITE             write
+3:17      9    LEFTPARENTHES     (
+3:18      1    ID                x
+3:19      10   RIGHTPARENTHES    )
+4:1       27   END               end
+5:1       31   EOF               EOF
+Лексический анализ завершён: лексем 16 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    begin           #2 P → begin A Q end                      P ┴ 
+2    begin           match begin                               begin A Q end ┴ 
+3    read            #10 A → read ( ID H )                     A Q end ┴ 
+4    read            match read                                read ( ID H ) Q end ┴ 
+5    (               match (                                   ( ID H ) Q end ┴ 
+6    ID(x)           match ID                          a       ID H ) Q end ┴ 
+7    )               #57 H → λ                                 H ) Q end ┴ 
+8    )               match )                           r       ) Q end ┴ 
+9    ;               #12 Q → ; A Q                             Q end ┴ 
+10   ;               match ;                                   ; A Q end ┴ 
+11   if              #7 A → if C then A E Z                    A Q end ┴ 
+12   if              match if                                  if C then A E Z Q end ┴ 
+13   ID(x)           #17 C → ID H V U D                        C then A E Z Q end ┴ 
+14   ID(x)           match ID                          a       ID H V U D then A E Z Q end ┴ 
+15   >               #57 H → λ                                 H V U D then A E Z Q end ┴ 
+16   >               #45 V → λ                                 V U D then A E Z Q end ┴ 
+17   >               #36 U → λ                                 U D then A E Z Q end ┴ 
+18   >               #23 D → > S Z                             D then A E Z Q end ┴ 
+19   >               match >                                   > S Z then A E Z Q end ┴ 
+20   INT(0)          #30 S → INT V U                           S Z then A E Z Q end ┴ 
+21   INT(0)          match INT                         k       INT V U Z then A E Z Q end ┴ 
+22   write           #45 V → λ                                 V U Z then A E Z Q end ┴ 
+23   write           #36 U → λ                                 U Z then A E Z Q end ┴ 
+24   write           #58 Z → λ                         >       Z then A E Z Q end ┴ 
+Синтаксическая ошибка: строка 3, символ 12: ожидалось 'then', получено 'write'

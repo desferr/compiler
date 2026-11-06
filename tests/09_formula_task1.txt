@@ -1,0 +1,7 @@
+begin
+  read(a); read(b); read(c); read(d); read(e);
+  x := (a + b) * (c - d / e) - a * (b - c) / 2 + -a;
+  y := x / 3 + (a - b) * (c + d) * (e - 1);
+  write(x);
+  write(y)
+end

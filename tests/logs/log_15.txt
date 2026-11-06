@@ -1,0 +1,51 @@
+=== Лексический анализ ===
+Pos       No   Lex               Text
+1:1       30   ARRAY             array
+1:7       1    ID                a
+1:8       11   LEFTBRACKET       [
+1:9       2    INT               3    [int = 3]
+1:10      12   RIGHTBRACKET      ]
+1:11      13   COMMA             ,
+1:13      1    ID                b
+1:14      11   LEFTBRACKET       [
+1:15      2    INT               2    [int = 2]
+1:16      12   RIGHTBRACKET      ]
+1:17      14   SEMICOLON         ;
+2:1       30   ARRAY             array
+2:7       1    ID                a
+2:8       11   LEFTBRACKET       [
+2:9       2    INT               5    [int = 5]
+2:10      12   RIGHTBRACKET      ]
+2:11      14   SEMICOLON         ;
+3:1       26   BEGIN             begin
+4:3       1    ID                a
+4:4       11   LEFTBRACKET       [
+4:5       2    INT               0    [int = 0]
+4:6       12   RIGHTBRACKET      ]
+4:8       4    ASSIGN            :=
+4:11      2    INT               1    [int = 1]
+5:1       27   END               end
+6:1       31   EOF               EOF
+Лексический анализ завершён: лексем 26 (включая EOF)
+=== Синтаксический анализ ===
+No   Input           Rule / Match                      Action  Stack
+1    array           #1 P → array R P                          P ┴ 
+2    array           match array                               array R P ┴ 
+3    ID(a)           #3 R → ID [ INT ] M                       R P ┴ 
+4    ID(a)           match ID                          6       ID [ INT ] M P ┴ 
+5    [               match [                                   [ INT ] M P ┴ 
+6    INT(3)          match INT                         k       INT ] M P ┴ 
+7    ]               match ]                           m1      ] M P ┴ 
+8    ,               #4 M → , ID [ INT ] M                     M P ┴ 
+9    ,               match ,                                   , ID [ INT ] M P ┴ 
+10   ID(b)           match ID                          6       ID [ INT ] M P ┴ 
+11   [               match [                                   [ INT ] M P ┴ 
+12   INT(2)          match INT                         k       INT ] M P ┴ 
+13   ]               match ]                           m1      ] M P ┴ 
+14   ;               #5 M → ;                                  M P ┴ 
+15   ;               match ;                                   ; P ┴ 
+16   array           #1 P → array R P                          P ┴ 
+17   array           match array                               array R P ┴ 
+18   ID(a)           #3 R → ID [ INT ] M                       R P ┴ 
+19   ID(a)           match ID                          6       ID [ INT ] M P ┴ 
+Семантическая ошибка: строка 2, символ 7: повторное описание массива 'a'

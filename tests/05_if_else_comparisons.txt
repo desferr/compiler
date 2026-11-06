@@ -1,0 +1,23 @@
+begin
+  a := 3; b := 5;
+  if a < b then write(1) else write(0);
+  if a > b then write(1) else write(0);
+  if a <= b then write(1) else write(0);
+  if a >= b then write(1) else write(0);
+  if a = b then write(1) else write(0);
+  if a <> b then write(1) else write(0);
+  c := 5.0;
+  if b = c then write(1) else write(0);
+  if b >= c then write(1);
+  if b > c then write(9);
+  if (a + 1) < b then write(1) else write(0);
+  if 3 > b then write(1) else write(0);
+  if 2.5 < b then write(1) else write(0);
+  if +a = 3 then write(1) else write(0);
+  if -a < 0 then write(1) else write(0);
+  x := 5;
+  if x > 0 then if x > 10 then write(100) else write(200);
+  if x < 0 then if x > -10 then write(300) else write(400);
+  if x < 0 then write(-1) else if x = 0 then write(0) else write(1);
+  if x = 5 then begin write(50); write(51) end else begin write(60) end
+end

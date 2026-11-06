@@ -1,0 +1,9 @@
+array a[3];
+begin
+  i := 0;
+  while i <= 3 do begin
+    a[i] := i * 10;
+    i := i + 1
+  end;
+  write(a[2])
+end

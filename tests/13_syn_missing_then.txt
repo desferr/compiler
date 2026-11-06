@@ -1,0 +1,4 @@
+begin
+  read(x);
+  if x > 0 write(x)
+end
